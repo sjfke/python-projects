@@ -11,4 +11,4 @@ Files:
 * jinja-cli.py - script
 * template.txt - template file
 * interfaces.json - parameters file 
-* interfaces.yaml - paremeters file
+* interfaces.yaml - parameters file
