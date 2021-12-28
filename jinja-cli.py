@@ -2,7 +2,6 @@
 # - Note: Undefined Jinja variables will cause errors
 # - Note: 'trim_blocks' and 'lstrip_block are forced to True
 
-# TODO: 2021.12.27: sjfke: Improve filepath handling to not assume CWD.
 # TODO: 2021.12.27: sjfke: Improve Error Reporting
 
 def render_template(template_filename, parameters_filename, file_format):
@@ -11,18 +10,27 @@ def render_template(template_filename, parameters_filename, file_format):
     import yaml
     from jinja2 import Template, StrictUndefined
 
-    workdir = os.getcwd()
-    filepath = os.path.join(workdir, parameters_filename)
+    if os.path.exists(parameters_filename):
+        filepath = parameters_filename
+    else:
+        workdir = os.getcwd()
+        filepath = os.path.join(workdir, parameters_filename)
 
     # Read the parameter values using YAML or JSON
     with open(filepath) as file:
+        # Not strictly necessary yaml.safe_load() can parse JSON
         if file_format == 'yaml_format':
             params = yaml.safe_load(file)
         else:
             params = json.load(file)
 
     # Read the template file
-    filepath = os.path.join(workdir, template_filename)
+    if os.path.exists(template_filename):
+        filepath = template_filename
+    else:
+        workdir = os.getcwd()
+        filepath = os.path.join(workdir, template_filename)
+
     with open(filepath) as file:
         template = file.read()
 

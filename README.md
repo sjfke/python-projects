@@ -9,6 +9,6 @@ Based on examples from:
 Files:
 
 * jinja-cli.py - script
-* template.txt - template file
-* interfaces.json - parameters file 
-* interfaces.yaml - parameters file
+* tests\interfaces-template.txt - template file
+* tests\interfaces.json - parameters file 
+* tests\interfaces.yaml - parameters file
