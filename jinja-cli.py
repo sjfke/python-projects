@@ -4,7 +4,7 @@
 
 # TODO: 2021.12.27: sjfke: Improve Error Reporting
 
-def render_template(template_filename, parameters_filename, file_format):
+def render_template(template_filename, parameters_filename, whitespace, unset_variables, file_format):
     import os
     import json
     import yaml
@@ -34,7 +34,14 @@ def render_template(template_filename, parameters_filename, file_format):
     with open(filepath) as file:
         template = file.read()
 
-    j2_template = Template(template, undefined=StrictUndefined, trim_blocks=True, lstrip_blocks=True)
+    if whitespace and unset_variables:
+        j2_template = Template(template)
+    elif whitespace:
+        j2_template = Template(template, undefined=StrictUndefined)
+    elif unset_variables:
+        j2_template = Template(template, trim_blocks=True, lstrip_blocks=True)
+    else:
+        j2_template = Template(template, undefined=StrictUndefined, trim_blocks=True, lstrip_blocks=True)
 
     print(j2_template.render(params))
 
@@ -49,6 +56,8 @@ if __name__ == '__main__':
     parser.add_argument('-pfile', type=str, default=None, help='parameters file', required=True)
     parser.add_argument('-j', '--json', help='JSON parameters file', default=False, action='store_true')
     parser.add_argument('-y', '--yaml', help='YAML parameters file', default=False, action='store_true')
+    parser.add_argument('-w', '--whitespace', help='enable white-space controls', default=False, action='store_true')
+    parser.add_argument('-u', '--unset', help='allow unset variables', default=False, action='store_true')
     parser.add_argument('-v', '--verbose', action='count', default=0)
     args = parser.parse_args()
 
@@ -57,6 +66,10 @@ if __name__ == '__main__':
     else:
         parameters_format = 'yaml_format'
 
-    render_template(template_filename=args.tfile, parameters_filename=args.pfile, file_format=parameters_format)
+    render_template(template_filename=args.tfile,
+                    parameters_filename=args.pfile,
+                    whitespace=args.whitespace,
+                    unset_variables=args.unset,
+                    file_format=parameters_format)
 
     exit(0)
