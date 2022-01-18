@@ -66,10 +66,12 @@ if __name__ == '__main__':
     else:
         parameters_format = 'yaml_format'
 
-    render_template(template_filename=args.tfile,
-                    parameters_filename=args.pfile,
-                    whitespace=args.whitespace,
-                    unset_variables=args.unset,
-                    file_format=parameters_format)
+    render_template(
+        template_filename=args.tfile,
+        parameters_filename=args.pfile,
+        whitespace=args.whitespace,
+        unset_variables=args.unset,
+        file_format=parameters_format
+    )
 
     exit(0)
