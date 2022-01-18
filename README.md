@@ -4,7 +4,10 @@
 ## Simple Jinja Template merge
 
 Based on examples from:
-* [ttl255.com/jinja2/](https://github.com/progala/ttl255.com/tree/master/jinja2) 
+* [TTL255 - Przemek Rogala's blog Computer Networks, Python and Automation](https://github.com/progala/ttl255.com/tree/master/jinja2)
+* [Jinja-2.11: Frequently Asked Questions](https://jinja.palletsprojects.com/en/2.11.x/faq/#why-is-it-called-jinja)
+* [Jinja-2.11: Template Designer Documentation](https://jinja.palletsprojects.com/en/2.11.x/templates/)
+* [PyFormat Using % and .format() for great good!](https://pyformat.info/)
 
 Files:
 
