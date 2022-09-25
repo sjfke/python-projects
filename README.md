@@ -11,7 +11,7 @@ Based on examples from:
 
 Files:
 
-* jinja-cli.py - script
+* jinja-cli.py - Python script
 
 * Network interface example
   * tests\interfaces.txt  - template file
