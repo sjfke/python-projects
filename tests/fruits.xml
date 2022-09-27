@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fruits>
+  <fruit><name>apple</name><color>green</color><price>1.20</price></fruit>
+  <fruit><name>banana</name><color>yellow</color><price>0.5</price></fruit>
+  <fruit><name>kiwi</name><color>green</color><price>1.25</price></fruit>
+</fruits>
+
