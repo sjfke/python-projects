@@ -1,3 +1,13 @@
+
+
+# ==============================================================================
+# Python Library: https://docs.python.org/dev/library/argparse.html
+# Nargs usage: https://docs.python.org/dev/library/argparse.html#nargs
+# Tutorial: https://docs.python.org/dev/howto/argparse.html
+# PyFormat Using % and .format() for great good!: https://pyformat.info/
+# Search Python Standard Library: https://docs.python.org/3/library/index.html
+# ==============================================================================
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     import argparse
@@ -18,12 +28,12 @@ if __name__ == '__main__':
     if args.verbose >= 1:
         print("args: {0}".format(args.__str__()))
 
+    # equiv of: file1 = open('filename.txt', 'r') # has been done by argparse.FileType('r')
+    # https://docs.python-guide.org/scenarios/xml/
     try:
-
         data = xmltodict.parse(args.infile.read())
         print(data)
         sys.exit(0)
-
     except FileNotFoundError as e:
         print("{0}".format(e))
         sys.exit(1)
