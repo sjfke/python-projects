@@ -20,7 +20,7 @@ if __name__ == '__main__':
     # parser.add_argument('-w', '--writefile', type=argparse.FileType('w'), default='-')
     parser.add_argument('-v', '--verbose', action='count', default=0)
     # https://docs.python.org/dev/library/argparse.html#nargs
-    parser.add_argument('infile', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
+    parser.add_argument('infd', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     # parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
 
     args = parser.parse_args()
@@ -28,12 +28,25 @@ if __name__ == '__main__':
     if args.verbose >= 1:
         print("args: {0}".format(args.__str__()))
 
-    # equiv of: file1 = open('filename.txt', 'r') # has been done by argparse.FileType('r')
+    # equiv of: infd = open('filename.txt', 'r') # has been done by argparse.FileType('r')
     # https://docs.python-guide.org/scenarios/xml/
     try:
-        data = xmltodict.parse(args.infile.read())
-        print(data)
+        data = xmltodict.parse(args.infd.read())
+
+        count = 0
+        for entry in data['rhythmdb']['entry']:
+            if entry['@type'] == 'iradio':
+                count += 1
+                print("{:03d}: {}".format(count, entry))
+
+        # print(data)
         sys.exit(0)
-    except FileNotFoundError as e:
-        print("{0}".format(e))
+    except FileNotFoundError as file_not_found_error:
+        print("{0}".format(file_not_found_error))
+        sys.exit(1)
+    except KeyError as key_error:
+        print("Missing key {0}, in, '{1}'".format(key_error, args.infd.name))
+        sys.exit(1)
+    except Exception as error:
+        print('{0}'.format(error))
         sys.exit(1)
