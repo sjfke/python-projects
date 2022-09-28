@@ -1,75 +1,83 @@
 import argparse
 import sys
 import xmltodict
-import logging
 
 
-def list_radio_entry(data_dict, yaml_format=False, verbose=0):
+def list_radio_entry(entries: object, yaml_format=False, verbose=0):
     """ List Internet Radio entries
-    :param data_dict - XML file as dictionary
+    :type entries: object - list of entries
     :param yaml_format - YAML rather than JSON
     :param verbose: messages
     """
 
-    count = 0
+    line_count: int = 0
+    TYPE_TO_MATCH: str = 'iradio'
 
     try:
-        for entry in data_dict['rhythmdb']['entry']:
-            if entry['@type'] == 'iradio':
-                count += 1
-                print("{:03d}: {}".format(count, entry))
+        for entry in entries:
+            if entry['@type'] == TYPE_TO_MATCH:
+                line_count += 1
+                if verbose > 0:
+                    print("{:03d}: {}".format(line_count, entry))
+
+        if verbose == 0:
+            print("{1:6s}: {0:03d}".format(line_count, TYPE_TO_MATCH))
+
     except KeyError as entry_key_error:
         print("Missing key {0}, in, '{1}'".format(entry_key_error, args.infd.name))
 
     return None
 
-    logging.critical("{0}: not yet implemented".format('list_radio_entry'))
-    return None
 
-
-def list_song_entry(data_dict, yaml_format=False, verbose=0):
+def list_song_entry(entries: object, yaml_format=False, verbose=0):
     """ List song entries
-    :param data_dict - XML file as dictionary
+    :type entries: object - list of entries
     :param yaml_format - YAML rather than JSON
     :param verbose: messages
     """
 
-    count = 0
+    line_count: int = 0
+    TYPE_TO_MATCH: str = 'song'
 
     try:
-        for entry in data_dict['rhythmdb']['entry']:
-            if entry['@type'] == 'song':
-                count += 1
-                print("{:03d}: {}".format(count, entry))
+        for entry in entries:
+            if entry['@type'] == TYPE_TO_MATCH:
+                line_count += 1
+                if verbose > 0:
+                    print("{:03d}: {}".format(line_count, entry))
+
+        if verbose == 0:
+            print("{1:6s}: {0:03d}".format(line_count, TYPE_TO_MATCH))
+
     except KeyError as entry_key_error:
         print("Missing key {0}, in, '{1}'".format(entry_key_error, args.infd.name))
 
     return None
 
-    logging.critical("{0}: not yet implemented".format('list_song_entry'))
-    return None
 
-
-def list_ignore_entry(data_dict, yaml_format=False, verbose=0):
+def list_ignore_entry(entries: object, yaml_format=False, verbose=0):
     """ List ignore entries
-    :param data_dict - XML file as dictionary
+    :type entries: object - list of entries
     :param yaml_format - YAML rather than JSON
     :param verbose: messages
     """
 
-    count = 0
+    line_count: int = 0
+    TYPE_TO_MATCH: str = 'ignore'
 
     try:
-        for entry in data_dict['rhythmdb']['entry']:
-            if entry['@type'] == 'ignore':
-                count += 1
-                print("{:03d}: {}".format(count, entry))
+        for entry in entries:
+            if entry['@type'] == TYPE_TO_MATCH:
+                line_count += 1
+                if verbose > 0:
+                    print("{:03d}: {}".format(line_count, entry))
+
+        if verbose == 0:
+            print("{1:6s}: {0:03d}".format(line_count, TYPE_TO_MATCH))
+
     except KeyError as entry_key_error:
         print("Missing key {0}, in, '{1}'".format(entry_key_error, args.infd.name))
 
-    return None
-
-    logging.critical("{0}: not yet implemented".format('list_ignore_entry'))
     return None
 
 
@@ -106,20 +114,21 @@ if __name__ == '__main__':
     # Done by: add_argument('infd', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     try:
         data = xmltodict.parse(args.infd.read())
+        entries = data['rhythmdb']['entry']
 
         if args.radio:
-            list_radio_entry(data_dict=data, yaml_format=False, verbose=0)
+            list_radio_entry(entries=entries, yaml_format=False, verbose=args.verbose)
         elif args.song:
-            list_song_entry(data_dict=data, yaml_format=False, verbose=0)
+            list_song_entry(entries=entries, yaml_format=False, verbose=args.verbose)
         elif args.ignore:
-            list_ignore_entry(data_dict=data, yaml_format=False, verbose=0)
+            list_ignore_entry(entries=entries, yaml_format=False, verbose=args.verbose)
         else:
             known_entries = ('iradio', 'song', 'ignore')
             count = 0
-            for entry in data['rhythmdb']['entry']:
-                if entry['@type'] not in known_entries:
+            for unknown_entry in entries:
+                if unknown_entry['@type'] not in known_entries:
                     count += 1
-                    print("{:03d}: {}".format(count, entry))
+                    print("{:03d}: {}".format(count, unknown_entry))
             # print(data)
 
         sys.exit(0)
