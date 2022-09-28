@@ -17,8 +17,8 @@ if __name__ == '__main__':
         description='Simple UNIX CLI like example',
         epilog="That's all Folks! ... Porky Pig")
     parser.add_argument('-v', '--verbose', action='count', default=0)
-    parser.add_argument('infile', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
-    # parser.add_argument('outfile', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
+    parser.add_argument('infd', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
+    # parser.add_argument('outfd', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
 
     args = parser.parse_args()
 
@@ -27,13 +27,13 @@ if __name__ == '__main__':
 
     try:
         count = 0
-        lines = args.infile.readlines()
+        lines = args.infd.readlines()
 
         for line in lines:
             count += 1
             print("{:03d}: {}".format(count, line.rstrip()))  # remove newline '\n'
 
-        args.infile.close()
+        args.infd.close()
         sys.exit(0)
     except Exception as error:
         print('{0}'.format(error))
