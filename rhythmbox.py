@@ -4,7 +4,7 @@ import xmltodict
 import logging
 
 
-def list_internet_radio(data_dict, yaml_format=False, verbose=0):
+def list_radio_entry(data_dict, yaml_format=False, verbose=0):
     """ List Internet Radio entries
     :param data_dict - XML file as dictionary
     :param yaml_format - YAML rather than JSON
@@ -18,12 +18,58 @@ def list_internet_radio(data_dict, yaml_format=False, verbose=0):
             if entry['@type'] == 'iradio':
                 count += 1
                 print("{:03d}: {}".format(count, entry))
-    except KeyError as key_error:
-        print("Missing key {0}, in, '{1}'".format(key_error, args.infd.name))
+    except KeyError as entry_key_error:
+        print("Missing key {0}, in, '{1}'".format(entry_key_error, args.infd.name))
 
     return None
 
-    logging.critical("{0}: not yet implemented".format('list_internet_radio'))
+    logging.critical("{0}: not yet implemented".format('list_radio_entry'))
+    return None
+
+
+def list_song_entry(data_dict, yaml_format=False, verbose=0):
+    """ List song entries
+    :param data_dict - XML file as dictionary
+    :param yaml_format - YAML rather than JSON
+    :param verbose: messages
+    """
+
+    count = 0
+
+    try:
+        for entry in data_dict['rhythmdb']['entry']:
+            if entry['@type'] == 'song':
+                count += 1
+                print("{:03d}: {}".format(count, entry))
+    except KeyError as entry_key_error:
+        print("Missing key {0}, in, '{1}'".format(entry_key_error, args.infd.name))
+
+    return None
+
+    logging.critical("{0}: not yet implemented".format('list_song_entry'))
+    return None
+
+
+def list_ignore_entry(data_dict, yaml_format=False, verbose=0):
+    """ List ignore entries
+    :param data_dict - XML file as dictionary
+    :param yaml_format - YAML rather than JSON
+    :param verbose: messages
+    """
+
+    count = 0
+
+    try:
+        for entry in data_dict['rhythmdb']['entry']:
+            if entry['@type'] == 'ignore':
+                count += 1
+                print("{:03d}: {}".format(count, entry))
+    except KeyError as entry_key_error:
+        print("Missing key {0}, in, '{1}'".format(entry_key_error, args.infd.name))
+
+    return None
+
+    logging.critical("{0}: not yet implemented".format('list_ignore_entry'))
     return None
 
 
@@ -44,7 +90,9 @@ if __name__ == '__main__':
 
     arguments = None
     parser = argparse.ArgumentParser(description='Simple RhythmBox Parser')
-    parser.add_argument('-i', '--iradio', action='store_true', help='extract iradio entries')
+    parser.add_argument('-r', '--radio', action='store_true', help='extract radio entries')
+    parser.add_argument('-s', '--song', action='store_true', help='extract song entries')
+    parser.add_argument('-i', '--ignore', action='store_true', help='extract ignore entries')
     parser.add_argument('-v', '--verbose', action='count', default=0)
     parser.add_argument('infd', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     # parser.add_argument('outfd', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
@@ -59,10 +107,20 @@ if __name__ == '__main__':
     try:
         data = xmltodict.parse(args.infd.read())
 
-        if args.iradio:
-            list_internet_radio(data_dict=data, yaml_format=False, verbose=0)
+        if args.radio:
+            list_radio_entry(data_dict=data, yaml_format=False, verbose=0)
+        elif args.song:
+            list_song_entry(data_dict=data, yaml_format=False, verbose=0)
+        elif args.ignore:
+            list_ignore_entry(data_dict=data, yaml_format=False, verbose=0)
         else:
-            print(data)
+            known_entries = ('iradio', 'song', 'ignore')
+            count = 0
+            for entry in data['rhythmdb']['entry']:
+                if entry['@type'] not in known_entries:
+                    count += 1
+                    print("{:03d}: {}".format(count, entry))
+            # print(data)
 
         sys.exit(0)
 
