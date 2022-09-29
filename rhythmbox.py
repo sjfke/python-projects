@@ -3,67 +3,15 @@ import sys
 import xmltodict
 
 
-def list_radio_entry(entries: object, yaml_format=False, verbose=0):
+def list_entries(entries: object, TYPE_TO_MATCH: str = 'ignore', yaml_format=False, verbose=0):
     """ List Internet Radio entries
     :type entries: object - list of entries
+    :param TYPE_TO_MATCH: entry type to match ('iradio', 'song', 'ignore')
     :param yaml_format - YAML rather than JSON
     :param verbose: messages
     """
 
     line_count: int = 0
-    TYPE_TO_MATCH: str = 'iradio'
-
-    try:
-        for entry in entries:
-            if entry['@type'] == TYPE_TO_MATCH:
-                line_count += 1
-                if verbose > 0:
-                    print("{:03d}: {}".format(line_count, entry))
-
-        if verbose == 0:
-            print("{1:6s}: {0:03d}".format(line_count, TYPE_TO_MATCH))
-
-    except KeyError as entry_key_error:
-        print("Missing key {0}, in, '{1}'".format(entry_key_error, args.infd.name))
-
-    return None
-
-
-def list_song_entry(entries: object, yaml_format=False, verbose=0):
-    """ List song entries
-    :type entries: object - list of entries
-    :param yaml_format - YAML rather than JSON
-    :param verbose: messages
-    """
-
-    line_count: int = 0
-    TYPE_TO_MATCH: str = 'song'
-
-    try:
-        for entry in entries:
-            if entry['@type'] == TYPE_TO_MATCH:
-                line_count += 1
-                if verbose > 0:
-                    print("{:03d}: {}".format(line_count, entry))
-
-        if verbose == 0:
-            print("{1:6s}: {0:03d}".format(line_count, TYPE_TO_MATCH))
-
-    except KeyError as entry_key_error:
-        print("Missing key {0}, in, '{1}'".format(entry_key_error, args.infd.name))
-
-    return None
-
-
-def list_ignore_entry(entries: object, yaml_format=False, verbose=0):
-    """ List ignore entries
-    :type entries: object - list of entries
-    :param yaml_format - YAML rather than JSON
-    :param verbose: messages
-    """
-
-    line_count: int = 0
-    TYPE_TO_MATCH: str = 'ignore'
 
     try:
         for entry in entries:
@@ -101,6 +49,7 @@ if __name__ == '__main__':
     parser.add_argument('-r', '--radio', action='store_true', help='extract radio entries')
     parser.add_argument('-s', '--song', action='store_true', help='extract song entries')
     parser.add_argument('-i', '--ignore', action='store_true', help='extract ignore entries')
+    parser.add_argument('-u', '--unknown', action='store_true', help='extract unknown entries')
     parser.add_argument('-v', '--verbose', action='count', default=0)
     parser.add_argument('infd', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     # parser.add_argument('outfd', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
@@ -115,20 +64,35 @@ if __name__ == '__main__':
     try:
         data = xmltodict.parse(args.infd.read())
         entries = data['rhythmdb']['entry']
+        known_entries = ('iradio', 'song', 'ignore')
 
         if args.radio:
-            list_radio_entry(entries=entries, yaml_format=False, verbose=args.verbose)
+            list_entries(entries=entries, TYPE_TO_MATCH='iradio', yaml_format=False, verbose=args.verbose)
         elif args.song:
-            list_song_entry(entries=entries, yaml_format=False, verbose=args.verbose)
+            list_entries(entries=entries, TYPE_TO_MATCH='song', yaml_format=False, verbose=args.verbose)
         elif args.ignore:
-            list_ignore_entry(entries=entries, yaml_format=False, verbose=args.verbose)
-        else:
-            known_entries = ('iradio', 'song', 'ignore')
+            list_entries(entries=entries, TYPE_TO_MATCH='ignore', yaml_format=False, verbose=args.verbose)
+        elif args.unknown:
             count = 0
             for unknown_entry in entries:
                 if unknown_entry['@type'] not in known_entries:
                     count += 1
-                    print("{:03d}: {}".format(count, unknown_entry))
+                    if args.verbose > 0:
+                        print("{:03d}: {}".format(count, unknown_entry))
+
+            if args.verbose == 0:
+                print("{1:6s}: {0:03d}".format(count, 'unknown'))
+
+        else:
+            count = 0
+            for known_entry in entries:
+                if known_entry['@type'] in known_entries:
+                    count += 1
+                    if args.verbose > 0:
+                        print("{:03d}: {}".format(count, known_entry))
+
+            if args.verbose == 0:
+                print("{1:6s}: {0:03d}".format(count, 'known'))
             # print(data)
 
         sys.exit(0)
