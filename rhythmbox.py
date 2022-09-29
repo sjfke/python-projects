@@ -1,5 +1,6 @@
 import argparse
 import sys
+
 import xmltodict
 
 
@@ -18,7 +19,11 @@ def list_entries(entries: object, TYPE_TO_MATCH: str = 'ignore', yaml_format=Fal
             if entry['@type'] == TYPE_TO_MATCH:
                 line_count += 1
                 if verbose > 0:
-                    print("{:03d}: {}".format(line_count, entry))
+                    if TYPE_TO_MATCH == 'ignore':
+                        location_entry = {'@type': entry['@type'], 'location': entry['location']}
+                        print("{:03d}: {}".format(line_count, location_entry))
+                    else:
+                        print("{:03d}: {}".format(line_count, entry))
 
         if verbose == 0:
             print("{1:6s}: {0:03d}".format(line_count, TYPE_TO_MATCH))
@@ -38,6 +43,7 @@ def list_entries(entries: object, TYPE_TO_MATCH: str = 'ignore', yaml_format=Fal
 # Search Python Standard Library: https://docs.python.org/3/library/index.html
 # Python Basics: https://docs.python-guide.org/scenarios/xml/
 # The ElementTree XML API: https://docs.python.org/3/library/xml.etree.elementtree.html
+# Dictionary into a valid XML string: https://pypi.org/project/dicttoxml/
 # Logging Best Practices: https://www.loggly.com/use-cases/6-python-logging-best-practices-you-should-be-aware-of/
 # ==============================================================================
 
@@ -45,7 +51,7 @@ def list_entries(entries: object, TYPE_TO_MATCH: str = 'ignore', yaml_format=Fal
 if __name__ == '__main__':
 
     arguments = None
-    parser = argparse.ArgumentParser(description='Simple RhythmBox Parser')
+    parser = argparse.ArgumentParser(description='Simple RhythmBox XML File Parser')
     parser.add_argument('-r', '--radio', action='store_true', help='extract radio entries')
     parser.add_argument('-s', '--song', action='store_true', help='extract song entries')
     parser.add_argument('-i', '--ignore', action='store_true', help='extract ignore entries')
@@ -71,7 +77,7 @@ if __name__ == '__main__':
         elif args.song:
             list_entries(entries=entries, TYPE_TO_MATCH='song', yaml_format=False, verbose=args.verbose)
         elif args.ignore:
-            list_entries(entries=entries, TYPE_TO_MATCH='ignore', yaml_format=False, verbose=args.verbose)
+            list_entries(entries=entries, TYPE_TO_MATCH='ignore', yaml_format=True, verbose=args.verbose)
         elif args.unknown:
             count = 0
             for unknown_entry in entries:
