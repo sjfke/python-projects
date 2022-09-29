@@ -34,6 +34,38 @@ def list_entries(entries: object, TYPE_TO_MATCH: str = 'ignore', yaml_format=Fal
     return None
 
 
+def list_all_entries(entries: object, KNOWN_ENTRIES=('iradio', 'song', 'ignore'), known_type=False, verbose=0):
+    """ List Internet Radio entries
+    :type entries: object - list of entries
+    :param KNOWN_ENTRIES: known entry types ('iradio', 'song', 'ignore')
+    :param known_type: entry type in TYPE_TO_MATCH
+    :param verbose: messages
+    """
+
+    line_count: int = 0
+
+    try:
+        for entry in entries:
+            if known_type and entry['@type'] in KNOWN_ENTRIES:
+                line_count += 1
+                if verbose > 0:
+                    print("{:03d}: {}".format(line_count, entry))
+            elif entry['@type'] not in KNOWN_ENTRIES:
+                line_count += 1
+                if verbose > 0:
+                    print("{:03d}: {}".format(line_count, entry))
+
+        if verbose == 0:
+            if known_type and entry['@type'] in KNOWN_ENTRIES:
+                print("{1:6s}: {0:03d}".format(line_count, 'known'))
+            else:
+                print("{1:6s}: {0:03d}".format(line_count, 'unknown'))
+
+    except KeyError as entry_key_error:
+        print("Missing key {0}, in, '{1}'".format(entry_key_error, args.infd.name))
+
+    return None
+
 # ==============================================================================
 # Python Library: https://docs.python.org/dev/library/argparse.html
 # Nargs usage: https://docs.python.org/dev/library/argparse.html#nargs
@@ -79,27 +111,9 @@ if __name__ == '__main__':
         elif args.ignore:
             list_entries(entries=entries, TYPE_TO_MATCH='ignore', yaml_format=True, verbose=args.verbose)
         elif args.unknown:
-            count = 0
-            for unknown_entry in entries:
-                if unknown_entry['@type'] not in known_entries:
-                    count += 1
-                    if args.verbose > 0:
-                        print("{:03d}: {}".format(count, unknown_entry))
-
-            if args.verbose == 0:
-                print("{1:6s}: {0:03d}".format(count, 'unknown'))
-
+            list_all_entries(entries=entries, KNOWN_ENTRIES=known_entries, known_type=False, verbose=args.verbose)
         else:
-            count = 0
-            for known_entry in entries:
-                if known_entry['@type'] in known_entries:
-                    count += 1
-                    if args.verbose > 0:
-                        print("{:03d}: {}".format(count, known_entry))
-
-            if args.verbose == 0:
-                print("{1:6s}: {0:03d}".format(count, 'known'))
-            # print(data)
+            list_all_entries(entries=entries, KNOWN_ENTRIES=known_entries, known_type=True, verbose=args.verbose)
 
         sys.exit(0)
 
