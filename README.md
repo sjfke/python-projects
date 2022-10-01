@@ -27,3 +27,17 @@ Files:
   * tests\rubbles.txt  - template file
   * tests\rubbles.json - parameters file 
   * tests\rubbles.yaml - parameters file
+
+## Simple ArgParse example programs
+
+Written to demonstrate how to use `argparse` to read from a positional file parameter or standard-in.
+
+* kitten.py - very simple `cat` like example
+* simple-cli.py - very very simple command line example
+
+**Note:** Add `#!/usr/bin/env python3` to the first line of the file to run on UNIX.
+
+## Rhythmbox.xml file parser (unfinished)
+
+* rhythmbox.py - (unfinished) rhythmbox.xml file parser
+
