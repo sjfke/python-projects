@@ -1,14 +1,16 @@
-#!/usr/bin/env python3
 
 import argparse
 import sys
 
-# ==============================================================================
+""" Useful references
 # Python Library: https://docs.python.org/dev/library/argparse.html
 # Nargs usage: https://docs.python.org/dev/library/argparse.html#nargs
 # Tutorial: https://docs.python.org/dev/howto/argparse.html
+# PEP 8 – Style Guide for Python Code: https://peps.python.org/pep-0008/
 # PyFormat Using % and .format() for great good!: https://pyformat.info/
-# ==============================================================================
+# Search Python Standard Library: https://docs.python.org/3/library/index.html
+# Logging Best Practices: https://www.loggly.com/use-cases/6-python-logging-best-practices-you-should-be-aware-of/
+"""
 
 if __name__ == '__main__':
 
