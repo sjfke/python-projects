@@ -9,6 +9,7 @@ def render_template(template_filename, parameters_filename, whitespace, unset_va
     import json
     import yaml
     from jinja2 import Template, StrictUndefined
+    # https://realpython.com/primer-on-jinja-templating use Jinja2, python -m pip list # Package: Jinja2, Version 3.x
 
     if os.path.exists(parameters_filename):
         filepath = parameters_filename
