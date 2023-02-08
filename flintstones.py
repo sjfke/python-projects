@@ -8,20 +8,20 @@ _dict = {'Fred': 30, 'Wilma': 25, 'Pebbles': 1, 'Dino': 5}
 
 def get_names():
     """
-    Get person names
+    Get Flintstones family firstnames
 
-    :rtype: List
-    :return: person names
+    :return: Flintstones family firstnames
+    :rtype: list
     """
     return _dict.keys()
 
 
 def get_ages():
     """
-    Get ages
+    Get Flintstones family ages
 
-    :rtype: List
-    :return: person ages
+    :return: Flintstones family ages
+    :rtype: list
     """
 
     return _dict.values()
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Simple Command Line Application')
     parser.add_argument('-n', '--names', action='store_true', default=False, help='display names')
     parser.add_argument('-a', '--ages', action='store_true', default=False, help='display ages')
-    parser.add_argument('-p', '--person', type=str, default=None, help='person to display')
+    parser.add_argument('-p', '--person', type=str, default=None, help='display person')
     parser.add_argument('-v', '--verbose', action='count', default=0)
 
     args = parser.parse_args()
