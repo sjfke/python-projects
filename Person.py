@@ -33,7 +33,7 @@ class Person:
 
     def __str__(self):
         """ String representation """
-        __str = ''
+        __str = 'Person: '
         __str += str(self.__name) + ', '
         __str += str(self.__age) + ', '
         __str += str(self.__sex) + ', '
@@ -41,12 +41,13 @@ class Person:
         return __str
 
     def __repr__(self):
-        """ YAML like string representation """
-        __str = "Person:" + os.linesep
-        __str += f"  name: {self.__name}" + os.linesep
-        __str += f"  age: {self.__age}" + os.linesep
-        __str += f"  sex: {self.__sex}" + os.linesep
-        __str += f"  uuid: {self.__uuid}"
+        """ repr() string representation """
+        __str = "{"
+        __str += f"'name': {self.__name}, "
+        __str += f"'age': {self.__age}, "
+        __str += f"'sex': {self.__sex}, "
+        __str += f"'uuid': {self.__uuid}"
+        __str += "}"
         return __str
 
     # Python attributes requires, property(fget=None, fset=None, fdel=None, doc=None)
