@@ -42,9 +42,15 @@ class Person:
 
     def __repr__(self):
         """ YAML like string representation """
-        __str = ''
-        __str += "{0}: {1}".format('name', self.__name) + os.linesep
-        __str += "{0}: {1}".format('age', self.__age) + os.linesep
-        __str += "{0}: {1}".format('sex', self.__sex) + os.linesep
-        __str += "{0}: {1}".format('uuid', self.__uuid)
+        __str = "Person:" + os.linesep
+        __str += f"  name: {self.__name}" + os.linesep
+        __str += f"  age: {self.__age}" + os.linesep
+        __str += f"  sex: {self.__sex}" + os.linesep
+        __str += f"  uuid: {self.__uuid}"
         return __str
+
+    # Python attributes requires, property(fget=None, fset=None, fdel=None, doc=None)
+    name = property(get_name, set_name, None, None)
+    age = property(get_age, set_age, None, None)
+    sex = property(get_sex, set_sex, None, None)
+    uuid = property(get_uuid, None, None, None)
