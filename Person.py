@@ -6,7 +6,14 @@ class Person:
 
     def __init__(self, name, age, sex='M'):
         self.__name = name
-        self.__age = age
+
+        if not isinstance(age, int):
+            raise ValueError(f"invalid int for age: '{age}'")
+        elif age > 0:
+            self.__age = age
+        else:
+            self.__age = 0
+
         self.__sex = sex
         self.__uuid = str(uuid.uuid4())
 
@@ -20,7 +27,12 @@ class Person:
         return self.__age
 
     def set_age(self, value):
-        self.__age = value
+        if not isinstance(value, int):
+            raise ValueError(f"invalid int for age: '{value}'")
+        elif value > 0:
+            self.__age = value
+        else:
+            self.__age = 0
 
     def get_sex(self):
         return self.__sex
