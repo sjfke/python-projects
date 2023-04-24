@@ -13,18 +13,20 @@ def get_datetime(epoch):
     :rtype: str
     """
     if args.local_time:
-        return datetime.fromtimestamp(args.epoch).strftime('%c')
+        return datetime.fromtimestamp(epoch).strftime('%c')
     else:
-        return datetime.utcfromtimestamp(args.epoch).strftime('%c')
+        return datetime.utcfromtimestamp(epoch).strftime('%c')
 
 
-def get_epoch():
+def get_epoch(local_time):
     """
     Return current datetime as UNIX epoch in UTC or local timezone
-    :return: epoch
+    :param local_time: use local time-zone not UTC
+    :type local_time: bool
+    :return: UNIX epoch
     :rtype: int
     """
-    if args.local_time:
+    if local_time:
         return int(time.mktime(datetime.now().timetuple()))
     else:
         return int(time.mktime(datetime.now(timezone.utc).timetuple()))
@@ -44,6 +46,6 @@ if __name__ == '__main__':
     if args.epoch:
         print(get_datetime(args.epoch))
     else:
-        print(get_epoch())
+        print(get_epoch(args.local_time))
 
     sys.exit(0)
