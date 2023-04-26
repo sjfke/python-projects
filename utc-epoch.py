@@ -2,12 +2,13 @@ import argparse
 import sys
 import time
 import pytz
-import tzlocal
 from datetime import datetime
 from pytz import timezone
+from tzlocal import get_localzone
 
 
 # https://www.tutorialspoint.com/How-to-convert-date-and-time-with-different-timezones-in-Python
+# https://www.tutorialspoint.com/How-do-I-print-a-Python-datetime-in-the-local-timezone
 # https://stackoverflow.com/questions/13866926/is-there-a-list-of-pytz-timezones
 # https://gist.github.com/mjrulesamrat/0c1f7de951d3c508fb3a20b4b0b33a98 # time-zone list
 # https://stackoverflow.com/questions/7065164/how-to-make-a-datetime-object-aware-not-naive-in-python
@@ -25,8 +26,7 @@ def get_datetime(epoch):
     _format = "%Y-%m-%d %H:%M:%S %Z%z"
 
     if args.local_time:
-        return datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).astimezone(
-            timezone('Europe/Zurich')).strftime(_format)
+        return datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).astimezone(get_localzone()).strftime(_format)
     else:
         return datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).strftime(_format)
 
@@ -40,7 +40,7 @@ def get_epoch(local_time):
     :rtype: int
     """
     if local_time:
-        return int(time.mktime(datetime.now().timetuple()))
+        return int(time.mktime(datetime.now(get_localzone()).timetuple()))
     else:
         return int(time.mktime(datetime.now(timezone('UTC')).timetuple()))
 
