@@ -11,7 +11,7 @@ Based on examples from:
 
 Files:
 
-* jinja-cli.py - Python script
+* ``jinja-cli.py`` - Python script
 
 * Network interface example
   * tests\interfaces.txt  - template file
@@ -32,12 +32,19 @@ Files:
 
 Written to demonstrate how to use `argparse` to read from a positional file parameter or standard-in.
 
-* kitten.py - very simple `cat` like example
-* simple-cli.py - very very simple command line example
+* ``kitten.py`` - a simplistic UNIX `cat` example
+* ``simple-cli.py`` - simple command line example for reading/writing files
 
 **Note:** Add `#!/usr/bin/env python3` to the first line of the file to run on UNIX.
 
+## UNIX epoch example
+
+Utility returning a [UNIX epoch](https://en.wikipedia.org/wiki/Unix_time) in UTC or local time-zone and to display an
+epoch as a date string.
+
+* ``utc-epoch.py`` - example for displaying a UNIX epoch in UTC or local time-zone
+
 ## Rhythmbox.xml file parser (unfinished)
 
-* rhythmbox.py - (unfinished) rhythmbox.xml file parser
+* ``rhythmbox.py`` - (unfinished) rhythmbox.xml file parser
 
