@@ -39,10 +39,9 @@ Written to demonstrate how to use `argparse` to read from a positional file para
 
 ## UNIX epoch example
 
-Utility returning a [UNIX epoch](https://en.wikipedia.org/wiki/Unix_time) in UTC or local time-zone and to display an
-epoch as a date string.
+Utility for displaying a [UNIX epoch](https://en.wikipedia.org/wiki/Unix_time) in UTC or local time-zone.
 
-* ``utc-epoch.py`` - example for displaying a UNIX epoch in UTC or local time-zone
+* ``unix-epoch.py`` - example for displaying a UNIX epoch in UTC or local time-zone
 
 ## Rhythmbox.xml file parser (unfinished)
 
