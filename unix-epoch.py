@@ -68,16 +68,25 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Display UNIX epoch')
     parser.add_argument('-e', '--epoch', type=int, default=None, help='epoch to display as date string')
     parser.add_argument('-l', '--local-time', action='store_true', help='use local time-zone')
-    parser.add_argument('-v', '--verbose', action='store_true')
+    parser.add_argument('-v', '--verbose', action='count', default=0)
 
     args = parser.parse_args()
 
-    if args.verbose:
+    if args.verbose > 1:
         print("args: {0}".format(args.__str__()))
 
     if args.epoch:
-        print(get_datetime(args.epoch))
+        if args.verbose == 1:
+            _datetime = get_datetime(args.epoch)
+            print(f"{_datetime} / {args.epoch}")
+        else:
+            print(get_datetime(args.epoch))
     else:
-        print(get_epoch(args.local_time))
+        if args.verbose >= 1:
+            _epoch = get_epoch(args.local_time)
+            _datetime = get_datetime(_epoch)
+            print(f"{_epoch} / {_datetime}")
+        else:
+            print(get_epoch(args.local_time))
 
     sys.exit(0)
