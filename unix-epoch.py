@@ -21,27 +21,28 @@ else:
 # https://stackoverflow.com/questions/7065164/how-to-make-a-datetime-object-aware-not-naive-in-python
 
 
-def get_datetime(epoch):
+def get_datetime(epoch, date_format="%Y-%m-%d %H:%M:%S %Z%z"):
     """
     Return DateTime string in UTC or local timezone (e.g. 2023-04-26 12:47:10 UTC+0000)
     :param epoch: UNIX epoch to convert
     :type epoch: int
+    :param date_format: date formatting (default "%Y-%m-%d %H:%M:%S %Z%z")
+    :type date_format: str
     :return: DateTime
     :rtype: str
     """
 
-    _format = "%Y-%m-%d %H:%M:%S %Z%z"
-
     if args.local_time:
         if _datetime_iana_support:
-            return datetime.fromtimestamp(epoch).replace(tzinfo=timezone.utc).astimezone().strftime(_format)
+            return datetime.fromtimestamp(epoch).replace(tzinfo=timezone.utc).astimezone().strftime(date_format)
         else:
-            return datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).astimezone(get_localzone()).strftime(_format)
+            return datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).astimezone(get_localzone()).strftime(
+                date_format)
     else:
         if _datetime_iana_support:
-            return datetime.fromtimestamp(epoch).replace(tzinfo=timezone.utc).strftime(_format)
+            return datetime.fromtimestamp(epoch).replace(tzinfo=timezone.utc).strftime(date_format)
         else:
-            return datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).strftime(_format)
+            return datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).strftime(date_format)
 
 
 def get_epoch(local_time):
@@ -67,6 +68,7 @@ def get_epoch(local_time):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Display UNIX epoch')
     parser.add_argument('-e', '--epoch', type=int, default=None, help='epoch to display as date string')
+    parser.add_argument('-i', '--iso8601', action='store_true', help='ISO-8601 date format')
     parser.add_argument('-l', '--local-time', action='store_true', help='use local time-zone')
     parser.add_argument('-v', '--verbose', action='count', default=0)
 
@@ -76,15 +78,23 @@ if __name__ == '__main__':
         print("args: {0}".format(args.__str__()))
 
     if args.epoch:
+        if args.iso8601:
+            _datetime = get_datetime(epoch=args.epoch, date_format="%Y-%m-%dT%H:%M:%S%z")
+        else:
+            _datetime = get_datetime(epoch=args.epoch)
+
         if args.verbose == 1:
-            _datetime = get_datetime(args.epoch)
             print(f"{_datetime} / {args.epoch}")
         else:
-            print(get_datetime(args.epoch))
+            print(f"{_datetime}")
     else:
         if args.verbose >= 1:
             _epoch = get_epoch(args.local_time)
-            _datetime = get_datetime(_epoch)
+            if args.iso8601:
+                _datetime = get_datetime(epoch=_epoch, date_format="%Y-%m-%dT%H:%M:%S%z")
+            else:
+                _datetime = get_datetime(epoch=_epoch)
+
             print(f"{_epoch} / {_datetime}")
         else:
             print(get_epoch(args.local_time))
