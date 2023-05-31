@@ -43,6 +43,24 @@ Utility for displaying a [UNIX epoch](https://en.wikipedia.org/wiki/Unix_time) i
 
 * ``unix-epoch.py`` - example for displaying a UNIX epoch in UTC or local time-zone
 
+## Base64 binary file encoding and decoding
+
+Restricted to common image and video file types, but could *easily* be extended to support other binary file types.
+
+* ``image-to-json.py`` - reads and encodes binary file, wrapping its content in a JSON file
+* ``json-to-image.py`` - extracts and decodes the binary data and writes it to a file
+
+JSON file content
+
+```json
+  {
+    "type": "png", 
+    "data": "<base64-encoded-content>",
+    "epoch": 1685547388, 
+    "created": "2023-05-31T17:36:28+0000"
+  }
+```
+
 ## Rhythmbox.xml file parser (unfinished)
 
 * ``rhythmbox.py`` - (unfinished) rhythmbox.xml file parser
