@@ -25,7 +25,7 @@ def get_person(name: str = None) -> (dict[str,int] | None):
     """
     Get age of Flintstones family member
     :param name: firstname
-    :return: integer age, KeyError or None
+    :return: integer age or None
     """
     if name is not None:
 
