@@ -14,19 +14,19 @@ Files:
 * ``jinja-cli.py`` - Python script
 
 * Network interface example
-  * tests\interfaces.txt  - template file
-  * tests\interfaces.json - parameters file 
-  * tests\interfaces.yaml - parameters file
+  * examples\interfaces.txt  - template file
+  * examples\interfaces.json - parameters file 
+  * examples\interfaces.yaml - parameters file
 
 * Flintstones family example using an array
-  * tests\flintstones.txt  - template file
-  * tests\flintstones.json - parameters file 
-  * tests\flintstones.yaml - parameters file
+  * examples\flintstones.txt  - template file
+  * examples\flintstones.json - parameters file 
+  * examples\flintstones.yaml - parameters file
 
 * Rubbles family example using key-value pairs
-  * tests\rubbles.txt  - template file
-  * tests\rubbles.json - parameters file 
-  * tests\rubbles.yaml - parameters file
+  * examples\rubbles.txt  - template file
+  * examples\rubbles.json - parameters file 
+  * examples\rubbles.yaml - parameters file
 
 ## Simple ArgParse example programs
 
