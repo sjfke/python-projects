@@ -60,17 +60,17 @@ if __name__ == '__main__':
     parser.add_argument('-l', '--last', type=int, default=0, help='last line to display')
     parser.add_argument('-r', '--reverse', action='store_true', default=False, help='reverse contents')
     parser.add_argument('-v', '--verbose', action='count', default=0)
-    parser.add_argument('infd', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
+    parser.add_argument('filename', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
 
     args = parser.parse_args()
 
     if args.verbose > 1:
         print("args: {0}".format(args.__str__()))
 
-    # Note equivalent of: infd = open('filename.txt', 'r')
-    # Done by: add_argument('infd', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
+    # Note equivalent of: filename = open('filename.txt', 'r')
+    # Done by: add_argument('filename', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     try:
-        contents = args.infd.readlines()
+        contents = args.filename.readlines()
         if args.reverse:
             contents.reverse()
 
