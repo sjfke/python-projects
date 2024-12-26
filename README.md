@@ -119,7 +119,7 @@ A simplistic version on UNIX `cat` command
 PS1> python .\kitten.py --help                         
 usage: kitten.py [-h] [-n] [-f FIRST] [-l LAST] [-r] [-v] [filename]
 
-Simple version on UNIX cat application
+Simple version of UNIX cat application
 
 positional arguments:
   filename

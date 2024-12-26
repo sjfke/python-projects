@@ -54,7 +54,7 @@ def display_contents(lines, line_numbers=False, first_line=0, last_line=0, verbo
 if __name__ == '__main__':
 
     arguments = None
-    parser = argparse.ArgumentParser(description='Simple version on UNIX cat application')
+    parser = argparse.ArgumentParser(description='Simple version of UNIX cat application')
     parser.add_argument('-n', '--number', action='store_true', default=False, help='display line numbers')
     parser.add_argument('-f', '--first', type=int, default=0, help='first line to display')
     parser.add_argument('-l', '--last', type=int, default=0, help='last line to display')
