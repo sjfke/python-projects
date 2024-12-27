@@ -19,8 +19,8 @@ Files:
   * examples\interfaces.yaml - parameters file
 
 ```console
-PS1> python .\jinja-cli.py -tfile .\examples\interfaces.txt -pfile .\examples\interfaces.json
-PS1> python .\jinja-cli.py -tfile .\examples\interfaces.txt -pfile .\examples\interfaces.yaml
+PS1> python .\jinja-cli.py -t .\examples\interfaces.txt -p .\examples\interfaces.json
+PS1> python .\jinja-cli.py -t .\examples\interfaces.txt -p .\examples\interfaces.yaml
 interface Ethernet1
   description leaf01-eth51
   ip address 10.50.0.0/31
@@ -35,8 +35,8 @@ interface Ethernet2
   * examples\flintstones.yaml - parameters file
 
 ```console
-PS1> python .\jinja-cli.py -tfile .\examples\flintstones.txt -pfile .\examples\flintstones.json
-PS1> python .\jinja-cli.py -tfile .\examples\flintstones.txt -pfile .\examples\flintstones.yaml 
+PS1> python .\jinja-cli.py -t .\examples\flintstones.txt -p .\examples\flintstones.json
+PS1> python .\jinja-cli.py -t .\examples\flintstones.txt -p .\examples\flintstones.yaml 
 FamilyName: flintstone
   Fred: 30 years old;
   Wilma: 25 years old;
@@ -55,8 +55,8 @@ FamilyName: Flintstone
   * examples\rubbles.yaml - parameters file
 
 ```console
-PS1> python .\jinja-cli.py -tfile .\examples\rubbles.txt -pfile .\examples\rubbles.json
-PS1> python .\jinja-cli.py -tfile .\examples\rubbles.txt -pfile .\examples\rubbles.yaml     
+PS1> python .\jinja-cli.py -t .\examples\rubbles.txt -p .\examples\rubbles.json
+PS1> python .\jinja-cli.py -t .\examples\rubbles.txt -p .\examples\rubbles.yaml     
 FamilyName: rubbles
   barney: 29 years old;
   betty: 26 years old;
