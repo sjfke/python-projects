@@ -53,8 +53,8 @@ if __name__ == '__main__':
 
     arguments = None
     parser = argparse.ArgumentParser(description='Simple Jinja2 CLI tool')
-    parser.add_argument('-tfile', type=str, default=None, help='template file', required=True)
-    parser.add_argument('-pfile', type=str, default=None, help='parameters file', required=True)
+    parser.add_argument('-t', '--template', type=str, default=None, help='template file', required=True)
+    parser.add_argument('-p', '--parameters', type=str, default=None, help='parameters file', required=True)
     parser.add_argument('-j', '--json', help='JSON parameters file', default=False, action='store_true')
     parser.add_argument('-y', '--yaml', help='YAML parameters file', default=False, action='store_true')
     parser.add_argument('-w', '--whitespace', help='enable white-space controls', default=False, action='store_true')
@@ -68,8 +68,8 @@ if __name__ == '__main__':
         parameters_format = 'yaml_format'
 
     render_template(
-        template_filename=args.tfile,
-        parameters_filename=args.pfile,
+        template_filename=args.template,
+        parameters_filename=args.parameters,
         whitespace=args.whitespace,
         unset_variables=args.unset,
         file_format=parameters_format
