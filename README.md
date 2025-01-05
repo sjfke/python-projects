@@ -86,9 +86,9 @@ Utility for displaying a [UNIX epoch](https://en.wikipedia.org/wiki/Unix_time) i
 * ``unix-epoch.py`` - example for displaying a UNIX epoch in UTC or local time-zone
 
 ```console
-PS1> python .\unix-epoch.py                  # 1734877954
-PS1> python .\unix-epoch.py -i -e 1734877954 # 2024-12-22T15:32:34+0000
-PS1> python .\unix-epoch.py -l -e 1734877954 # 2024-12-22 16:32:34 W. Europe Standard Time+0100
+PS1> python .\unix_epoch.py                  # 1734877954
+PS1> python .\unix_epoch.py -i -e 1734877954 # 2024-12-22T15:32:34+0000
+PS1> python .\unix_epoch.py -l -e 1734877954 # 2024-12-22 16:32:34 W. Europe Standard Time+0100
 ```
 
 ## Base64 binary file encoding and decoding

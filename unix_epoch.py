@@ -1,6 +1,8 @@
 import argparse
 import sys
 import time
+import pytz
+from tzlocal import get_localzone
 
 _datetime_iana_support = False
 if sys.version_info.major >= 3 and sys.version_info.minor >= 9:
@@ -9,9 +11,7 @@ if sys.version_info.major >= 3 and sys.version_info.minor >= 9:
     _datetime_iana_support = True
 else:
     from datetime import datetime
-    import pytz
     from pytz import timezone
-    from tzlocal import get_localzone
 
 
 # https://www.tutorialspoint.com/How-to-convert-date-and-time-with-different-timezones-in-Python
@@ -21,28 +21,30 @@ else:
 # https://stackoverflow.com/questions/7065164/how-to-make-a-datetime-object-aware-not-naive-in-python
 
 
-def get_datetime(epoch, date_format="%Y-%m-%d %H:%M:%S %Z%z"):
+def get_datetime(epoch, local_time=False, date_format="%Y-%m-%d %H:%M:%S %Z%z"):
     """
     Return DateTime string in UTC or local timezone (e.g. 2023-04-26 12:47:10 UTC+0000)
     :param epoch: UNIX epoch to convert
     :type epoch: int
+    :param local_time: use local timezone, not UTC the default
+    :type: local_time: Boolean
     :param date_format: date formatting (default "%Y-%m-%d %H:%M:%S %Z%z")
     :type date_format: str
     :return: DateTime
     :rtype: str
     """
 
-    if args.local_time:
+    if local_time:
         if _datetime_iana_support:
-            return datetime.fromtimestamp(epoch).replace(tzinfo=timezone.utc).astimezone().strftime(date_format)
+            return str(datetime.fromtimestamp(epoch).replace(tzinfo=timezone.utc).astimezone(get_localzone()).strftime(date_format))
         else:
-            return datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).astimezone(get_localzone()).strftime(
-                date_format)
+            return str(datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).astimezone(get_localzone()).strftime(
+                date_format))
     else:
         if _datetime_iana_support:
-            return datetime.fromtimestamp(epoch).replace(tzinfo=timezone.utc).strftime(date_format)
+            return str(datetime.fromtimestamp(epoch).replace(tzinfo=timezone.utc).strftime(date_format))
         else:
-            return datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).strftime(date_format)
+            return str(datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).strftime(date_format))
 
 
 def get_epoch(local_time):
@@ -79,9 +81,15 @@ if __name__ == '__main__':
 
     if args.epoch:
         if args.iso8601:
-            _datetime = get_datetime(epoch=args.epoch, date_format="%Y-%m-%dT%H:%M:%S%z")
+            if args.local_time:
+                _datetime = get_datetime(epoch=args.epoch, local_time=True, date_format="%Y-%m-%dT%H:%M:%S%z")
+            else:
+                _datetime = get_datetime(epoch=args.epoch, date_format="%Y-%m-%dT%H:%M:%S%z")
         else:
-            _datetime = get_datetime(epoch=args.epoch)
+            if args.local_time:
+                _datetime = get_datetime(epoch=args.epoch, local_time=True)
+            else:
+                _datetime = get_datetime(epoch=args.epoch)
 
         if args.verbose == 1:
             print(f"{_datetime} / {args.epoch}")
@@ -89,14 +97,14 @@ if __name__ == '__main__':
             print(f"{_datetime}")
     else:
         if args.verbose >= 1:
-            _epoch = get_epoch(args.local_time)
+            _epoch = get_epoch(local_time=args.local_time)
             if args.iso8601:
-                _datetime = get_datetime(epoch=_epoch, date_format="%Y-%m-%dT%H:%M:%S%z")
+                _datetime = get_datetime(epoch=_epoch, local_time=args.local_time, date_format="%Y-%m-%dT%H:%M:%S%z")
             else:
-                _datetime = get_datetime(epoch=_epoch)
+                _datetime = get_datetime(epoch=_epoch, local_time=args.local_time)
 
             print(f"{_epoch} / {_datetime}")
         else:
-            print(get_epoch(args.local_time))
+            print(get_epoch(local_time=args.local_time))
 
     sys.exit(0)
