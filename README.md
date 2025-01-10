@@ -165,3 +165,15 @@ PS1> python .\kitten.py -f 2 -l 6 .\examples\fruits.xml
 
 * ``rhythmbox.py`` - (unfinished) rhythmbox.xml file parser
 
+## Pytest Testing
+
+A series of `pytest` based test programs are being developed and will be stored in the `tests` sub-folder.
+
+In order for tests to work the project folder needs to be in the Python search path, so the `pytest` must be executed 
+as a Python module and not directly from the command line.
+
+```console
+PS1> python -m pytest  # works
+PS1> pytest            # will FAIL
+```
+
