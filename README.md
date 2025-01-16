@@ -1,9 +1,11 @@
 # python-projects
- Collection of Simple Python Utility Scripts
+
+Collection of Simple Python Utility Scripts
 
 ## Simple Jinja Template merge
 
 Based on examples from:
+
 * [TTL255 - Przemek Rogala's blog Computer Networks, Python and Automation](https://github.com/progala/ttl255.com/tree/master/jinja2)
 * [Jinja-2.11: Frequently Asked Questions](https://jinja.palletsprojects.com/en/2.11.x/faq/#why-is-it-called-jinja)
 * [Jinja-2.11: Template Designer Documentation](https://jinja.palletsprojects.com/en/2.11.x/templates/)
@@ -14,9 +16,9 @@ Files:
 * ``jinja-cli.py`` - Python script
 
 * Network interface example
-  * examples\interfaces.txt  - template file
-  * examples\interfaces.json - parameters file 
-  * examples\interfaces.yaml - parameters file
+    * examples\interfaces.txt - template file
+    * examples\interfaces.json - parameters file
+    * examples\interfaces.yaml - parameters file
 
 ```console
 PS1> python .\jinja-cli.py -t .\examples\interfaces.txt -p .\examples\interfaces.json
@@ -30,9 +32,9 @@ interface Ethernet2
 ```
 
 * Flintstones family example using an array
-  * examples\flintstones.txt  - template file
-  * examples\flintstones.json - parameters file 
-  * examples\flintstones.yaml - parameters file
+    * examples\flintstones.txt - template file
+    * examples\flintstones.json - parameters file
+    * examples\flintstones.yaml - parameters file
 
 ```console
 PS1> python .\jinja-cli.py -t .\examples\flintstones.txt -p .\examples\flintstones.json
@@ -49,10 +51,11 @@ FamilyName: Flintstone
    Pebbles: 01 years old;
       Dino: 05 years old;
 ```
+
 * Rubbles family example using key-value pairs
-  * examples\rubbles.txt  - template file
-  * examples\rubbles.json - parameters file 
-  * examples\rubbles.yaml - parameters file
+    * examples\rubbles.txt - template file
+    * examples\rubbles.json - parameters file
+    * examples\rubbles.yaml - parameters file
 
 ```console
 PS1> python .\jinja-cli.py -t .\examples\rubbles.txt -p .\examples\rubbles.json
@@ -74,10 +77,37 @@ FamilyName: Rubbles
 
 Written to demonstrate how to use `argparse` to read from a positional file parameter or standard-in.
 
-* ``kitten.py`` - a simplistic UNIX `cat` example
-* ``simple-cli.py`` - simple command line example for reading/writing files
+``simple-cli.py`` - simple command line example for reading/writing files
 
-**Note:** Add `#!/usr/bin/env python3` to the first line of the file to run on UNIX.
+```console
+PS1> python .\simple-cli.py .\examples\flintstones.json
+001: {
+002:         "family":"flintstone",
+003:         "members":
+004:                 [
+005:                         {"Name":"Fred", "Age":30},
+006:                         {"Name":"Wilma", "Age":25},
+007:                         {"Name":"Pebbles", "Age":1},
+008:                         {"Name":"Dino", "Age":5}
+009:                 ]
+010: }
+```
+
+``kitten.py`` - a simplistic UNIX `cat` example
+
+```console
+PS1> python .\kitten.py -n -f 3 -l 9 .\examples\flintstones.json
+003:         "members":
+004:                 [
+005:                         {"Name":"Fred", "Age":30},
+006:                         {"Name":"Wilma", "Age":25},
+007:                         {"Name":"Pebbles", "Age":1},
+008:                         {"Name":"Dino", "Age":5}
+009:                 ]
+```
+
+**Note:** Add `#!/usr/bin/python3` or `#!/usr/bin/env python3` to the first line of the file to run directly from UNIX
+command-line.
 
 ## UNIX epoch example
 
@@ -86,9 +116,9 @@ Utility for displaying a [UNIX epoch](https://en.wikipedia.org/wiki/Unix_time) i
 * ``unix-epoch.py`` - example for displaying a UNIX epoch in UTC or local time-zone
 
 ```console
-PS1> python .\unix-epoch.py                  # 1734877954
-PS1> python .\unix-epoch.py -i -e 1734877954 # 2024-12-22T15:32:34+0000
-PS1> python .\unix-epoch.py -l -e 1734877954 # 2024-12-22 16:32:34 W. Europe Standard Time+0100
+PS1> python .\unix_epoch.py                  # 1734877954
+PS1> python .\unix_epoch.py -i -e 1734877954 # 2024-12-22T15:32:34+0000
+PS1> python .\unix_epoch.py -l -e 1734877954 # 2024-12-22 16:32:34 W. Europe Standard Time+0100
 ```
 
 ## Base64 binary file encoding and decoding
@@ -101,16 +131,18 @@ Restricted to common image and video file types, but could *easily* be extended 
 ```console
 PS1> python .\image-to-json.py .\examples\python-logo.png .\examples\python-logo.json
 ```
+
 JSON file content
 
 ```json
   {
-    "type": "png", 
-    "data": "<base64-encoded-content>", 
-    "epoch": 1735030251,
-    "created": "2024-12-24T09:50:51+0000"
-  }
+  "type": "png",
+  "data": "<base64-encoded-content>",
+  "epoch": 1735030251,
+  "created": "2024-12-24T09:50:51+0000"
+}
 ```
+
 ## Kitten
 
 A simplistic version on UNIX `cat` command
@@ -161,7 +193,20 @@ PS1> python .\kitten.py -f 2 -l 6 .\examples\fruits.xml
   <fruit><name>kiwi</name><color>green</color><price>1.25</price></fruit>
 </fruits>
 ```
+
 ## Rhythmbox.xml file parser (unfinished)
 
 * ``rhythmbox.py`` - (unfinished) rhythmbox.xml file parser
+
+## Pytest Testing
+
+A series of `pytest` based test programs are being developed and will be stored in the `tests` sub-folder.
+
+In order for tests to work the project folder needs to be in the Python search path, so the `pytest` must be executed
+as a Python module and not directly from the command line.
+
+```console
+PS1> python -m pytest  # works
+PS1> pytest            # will FAIL
+```
 

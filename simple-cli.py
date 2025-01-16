@@ -1,4 +1,3 @@
-
 import argparse
 import sys
 
@@ -16,15 +15,17 @@ if __name__ == '__main__':
 
     arguments = None
     parser = argparse.ArgumentParser(
-        description='Simple UNIX CLI like example',
+        description='Copy infile to outfile adding line numbers',
         epilog="That's all Folks! ... Porky Pig"
     )
     parser.add_argument('-v', '--verbose', action='count', default=0)
     parser.add_argument(
-        'infile', nargs='?', type=argparse.FileType('r', encoding='utf-8'), default=sys.stdin
+        'infile', nargs='?', type=argparse.FileType('r', encoding='utf-8'), help='filename, omitted reads from STDIN',
+        default=sys.stdin
     )
     parser.add_argument(
-        'outfile', nargs='?', type=argparse.FileType('w', encoding='utf-8'), default=sys.stdout
+        'outfile', nargs='?', type=argparse.FileType('w', encoding='utf-8'), help='filename, omitted writes to STDOUT',
+        default=sys.stdout
     )
 
     args = parser.parse_args()
