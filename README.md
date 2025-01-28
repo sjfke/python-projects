@@ -38,7 +38,6 @@ interface Ethernet2
 
 ```console
 PS1> python .\jinja-cli.py -t .\examples\flintstones.txt -p .\examples\flintstones.json
-PS1> python .\jinja-cli.py -t .\examples\flintstones.txt -p .\examples\flintstones.yaml 
 FamilyName: flintstone
   Fred: 30 years old;
   Wilma: 25 years old;
@@ -59,7 +58,6 @@ FamilyName: Flintstone
 
 ```console
 PS1> python .\jinja-cli.py -t .\examples\rubbles.txt -p .\examples\rubbles.json
-PS1> python .\jinja-cli.py -t .\examples\rubbles.txt -p .\examples\rubbles.yaml     
 FamilyName: rubbles
   barney: 29 years old;
   betty: 26 years old;
