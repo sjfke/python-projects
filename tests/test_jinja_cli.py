@@ -23,6 +23,7 @@ FamilyName: Flintstones
 
 '''
 
+
 @pytest.fixture
 def rubbles() -> str:
     return '''FamilyName: rubbles
@@ -39,31 +40,28 @@ FamilyName: Rubbles
 
 '''
 
-def test_assert_true() -> None:
-    assert True
+@pytest.fixture()
+def interfaces() -> str:
+    return '''interface Ethernet1
+  description leaf01-eth51
+  ip address 10.50.0.0/31
+interface Ethernet2
+  description leaf02-eth51
+  ip address 10.50.0.2/31
 
-
-def test_output_capture(capsys):  # or use "capfd" for fd-level
-    print("hello")
-    sys.stderr.write("world\n")
-    captured = capsys.readouterr()
-    assert captured.out == "hello\n"
-    assert captured.err == "world\n"
-    print("next")
-    captured = capsys.readouterr()
-    assert captured.out == "next\n"
+'''
 
 def test_flintstones_json(capsys, flintstones) -> None:
     _template = 'examples/flintstones.txt'
-    _parameters = 'examples/flintstones.json' # TODO 'examples/flintstones.yaml'
+    _parameters = 'examples/flintstones.json'  # TODO 'examples/flintstones.yaml'
     _whitespace = False
     _unset_variables = False
     _parameters_format = 'json_format'
 
     jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
-                                     whitespace=_whitespace,
-                                     unset_variables=_unset_variables,
-                                     file_format=_parameters_format)
+                              whitespace=_whitespace,
+                              unset_variables=_unset_variables,
+                              file_format=_parameters_format)
     captured = capsys.readouterr()
     assert captured.out == flintstones
 
@@ -76,9 +74,9 @@ def test_flintstones_yaml(capsys, flintstones) -> None:
     _parameters_format = 'yaml_format'
 
     jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
-                                     whitespace=_whitespace,
-                                     unset_variables=_unset_variables,
-                                     file_format=_parameters_format)
+                              whitespace=_whitespace,
+                              unset_variables=_unset_variables,
+                              file_format=_parameters_format)
     captured = capsys.readouterr()
     assert captured.out == flintstones
 
@@ -91,11 +89,12 @@ def test_rubbles_json(capsys, rubbles) -> None:
     _parameters_format = 'json_format'
 
     jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
-                                     whitespace=_whitespace,
-                                     unset_variables=_unset_variables,
-                                     file_format=_parameters_format)
+                              whitespace=_whitespace,
+                              unset_variables=_unset_variables,
+                              file_format=_parameters_format)
     captured = capsys.readouterr()
     assert captured.out == rubbles
+
 
 def test_rubbles_yaml(capsys, rubbles) -> None:
     _template = 'examples/rubbles.txt'
@@ -105,8 +104,36 @@ def test_rubbles_yaml(capsys, rubbles) -> None:
     _parameters_format = 'yaml_format'
 
     jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
-                                     whitespace=_whitespace,
-                                     unset_variables=_unset_variables,
-                                     file_format=_parameters_format)
+                              whitespace=_whitespace,
+                              unset_variables=_unset_variables,
+                              file_format=_parameters_format)
     captured = capsys.readouterr()
     assert captured.out == rubbles
+
+def test_interfaces_json(capsys, interfaces) -> None:
+    _template = 'examples/interfaces.txt'
+    _parameters = 'examples/interfaces.json'
+    _whitespace = False
+    _unset_variables = False
+    _parameters_format = 'json_format'
+
+    jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
+                              whitespace=_whitespace,
+                              unset_variables=_unset_variables,
+                              file_format=_parameters_format)
+    captured = capsys.readouterr()
+    assert captured.out == interfaces
+
+def test_interfaces_yaml(capsys, interfaces) -> None:
+    _template = 'examples/interfaces.txt'
+    _parameters = 'examples/interfaces.yaml'
+    _whitespace = False
+    _unset_variables = False
+    _parameters_format = 'yaml_format'
+
+    jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
+                              whitespace=_whitespace,
+                              unset_variables=_unset_variables,
+                              file_format=_parameters_format)
+    captured = capsys.readouterr()
+    assert captured.out == interfaces
