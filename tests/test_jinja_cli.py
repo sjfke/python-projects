@@ -1,9 +1,6 @@
-import sys
-import os
 import importlib
 import pytest
 
-sys.path.append(os.getcwd() + '/..')
 jinja_cli = importlib.import_module("jinja-cli")
 
 
