@@ -4,12 +4,12 @@ Collection of Simple Python Utility Scripts
 
 ## Simple Jinja Template merge
 
-Based on examples from:
+Useful references:
 
 * [TTL255 - Przemek Rogala's blog Computer Networks, Python and Automation](https://github.com/progala/ttl255.com/tree/master/jinja2)
 * [Jinja-2.11: Frequently Asked Questions](https://jinja.palletsprojects.com/en/2.11.x/faq/#why-is-it-called-jinja)
 * [Jinja-2.11: Template Designer Documentation](https://jinja.palletsprojects.com/en/2.11.x/templates/)
-* [PyFormat Using % and .format() for great good!](https://pyformat.info/)
+* [Primer on Jinja Templating](https://realpython.com/primer-on-jinja-templating/)
 
 Files:
 
@@ -38,7 +38,7 @@ interface Ethernet2
 
 ```console
 PS1> python .\jinja-cli.py -t .\examples\flintstones.txt -p .\examples\flintstones.json
-PS1> python .\jinja-cli.py -t .\examples\flintstones.txt -p .\examples\flintstones.yaml 
+PS1> python .\jinja-cli.py -t .\examples\flintstones.txt -p .\examples\flintstones.yaml
 FamilyName: flintstone
   Fred: 30 years old;
   Wilma: 25 years old;
@@ -59,7 +59,7 @@ FamilyName: Flintstone
 
 ```console
 PS1> python .\jinja-cli.py -t .\examples\rubbles.txt -p .\examples\rubbles.json
-PS1> python .\jinja-cli.py -t .\examples\rubbles.txt -p .\examples\rubbles.yaml     
+PS1> python .\jinja-cli.py -t .\examples\rubbles.txt -p .\examples\rubbles.yaml
 FamilyName: rubbles
   barney: 29 years old;
   betty: 26 years old;
