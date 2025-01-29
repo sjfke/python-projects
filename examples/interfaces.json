@@ -1,11 +1,11 @@
 {
   "interfaces":{
-    "Ethernet3": {
-      "description": "leaf01-eth55",
+    "Ethernet1": {
+      "description": "leaf01-eth51",
       "ipv4_address": "10.50.0.0/31"
     },
-    "Ethernet4": {
-      "description": "leaf02-eth55",
+    "Ethernet2": {
+      "description": "leaf02-eth51",
       "ipv4_address": "10.50.0.2/31"
     }
   }
