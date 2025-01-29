@@ -2,14 +2,13 @@
 # - Note: Undefined Jinja variables will cause errors
 # - Note: 'trim_blocks' and 'lstrip_block are forced to True
 
-# TODO: 2021.12.27: sjfke: Improve Error Reporting
 
-def render_template(template_filename, parameters_filename, whitespace, unset_variables, file_format):
+def render_template(template_filename, parameters_filename, whitespace, unset_variables, verbose):
     import os
     import json
     import yaml
+    import sys
     from jinja2 import Template, StrictUndefined
-    # https://realpython.com/primer-on-jinja-templating use Jinja2, python -m pip list # Package: Jinja2, Version 3.x
 
     if os.path.exists(parameters_filename):
         filepath = parameters_filename
@@ -17,13 +16,27 @@ def render_template(template_filename, parameters_filename, whitespace, unset_va
         workdir = os.getcwd()
         filepath = os.path.join(workdir, parameters_filename)
 
-    # Read the parameter values using YAML or JSON
-    with open(filepath) as file:
-        # Not strictly necessary yaml.safe_load() can parse JSON
-        if file_format == 'yaml_format':
+    try:
+        file = open(filepath)
+    except OSError as os_error:
+        print(f"{os_error}", file=sys.stderr)
+        sys.exit(1)
+
+    params = None
+    try:
+        if verbose:
+            print(f"trying to JSON load, {file.name}")
+        params = json.load(file)
+    except json.decoder.JSONDecodeError as json_decode_error:
+        file.seek(0)  # return to beginning of file
+        if verbose:
+            print(f"trying to YAML load, {file.name}")
+        try:
             params = yaml.safe_load(file)
-        else:
-            params = json.load(file)
+        except yaml.YAMLError as yaml_error:
+            print(f"Parameters file not valid JSON or YAML, {yaml_error}", file=sys.stderr)
+    finally:
+        file.close()
 
     # Read the template file
     if os.path.exists(template_filename):
@@ -32,8 +45,13 @@ def render_template(template_filename, parameters_filename, whitespace, unset_va
         workdir = os.getcwd()
         filepath = os.path.join(workdir, template_filename)
 
-    with open(filepath) as file:
+    template = None
+    try:
+        file = open(filepath)
         template = file.read()
+    except OSError as os_error:
+        print(f"{os_error}", file=sys.stderr)
+        sys.exit(1)
 
     if whitespace and unset_variables:
         j2_template = Template(template)
@@ -47,7 +65,6 @@ def render_template(template_filename, parameters_filename, whitespace, unset_va
     print(j2_template.render(params))
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     import argparse
 
@@ -55,24 +72,17 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Simple Jinja2 CLI tool')
     parser.add_argument('-t', '--template', type=str, default=None, help='template file', required=True)
     parser.add_argument('-p', '--parameters', type=str, default=None, help='parameters file', required=True)
-    parser.add_argument('-j', '--json', help='JSON parameters file', default=False, action='store_true')
-    parser.add_argument('-y', '--yaml', help='YAML parameters file', default=False, action='store_true')
     parser.add_argument('-w', '--whitespace', help='enable white-space controls', default=False, action='store_true')
     parser.add_argument('-u', '--unset', help='allow unset variables', default=False, action='store_true')
     parser.add_argument('-v', '--verbose', action='count', default=0)
     args = parser.parse_args()
-
-    if args.json:
-        parameters_format = 'json_format'
-    else:
-        parameters_format = 'yaml_format'
 
     render_template(
         template_filename=args.template,
         parameters_filename=args.parameters,
         whitespace=args.whitespace,
         unset_variables=args.unset,
-        file_format=parameters_format
+        verbose=args.verbose
     )
 
     exit(0)
