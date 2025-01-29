@@ -2,7 +2,6 @@ import pytest
 import pytz  # python IANA timezone implementation
 from pytz import timezone
 from tzlocal import get_localzone
-from datetime import datetime
 
 import time
 from datetime import datetime, timezone

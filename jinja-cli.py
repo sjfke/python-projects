@@ -3,7 +3,7 @@
 # - Note: 'trim_blocks' and 'lstrip_block are forced to True
 
 
-def render_template(template_filename, parameters_filename, whitespace, unset_variables, verbose):
+def render_template(template_filename, parameters_filename, whitespace, unset_variables, verbose=0):
     import os
     import json
     import yaml
@@ -24,12 +24,12 @@ def render_template(template_filename, parameters_filename, whitespace, unset_va
 
     params = None
     try:
-        if verbose:
+        if verbose > 0:
             print(f"trying to JSON load, {file.name}")
         params = json.load(file)
     except json.decoder.JSONDecodeError as json_decode_error:
         file.seek(0)  # return to beginning of file
-        if verbose:
+        if verbose > 0:
             print(f"trying to YAML load, {file.name}")
         try:
             params = yaml.safe_load(file)

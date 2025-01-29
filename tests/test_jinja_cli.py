@@ -1,9 +1,6 @@
-import sys
-import os
 import importlib
 import pytest
 
-sys.path.append(os.getcwd() + '/..')
 jinja_cli = importlib.import_module("jinja-cli")
 
 
@@ -40,6 +37,7 @@ FamilyName: Rubbles
 
 '''
 
+
 @pytest.fixture()
 def interfaces() -> str:
     return '''interface Ethernet1
@@ -51,6 +49,7 @@ interface Ethernet2
 
 '''
 
+
 def test_flintstones_json(capsys, flintstones) -> None:
     _template = 'examples/flintstones.txt'
     _parameters = 'examples/flintstones.json'  # TODO 'examples/flintstones.yaml'
@@ -60,8 +59,7 @@ def test_flintstones_json(capsys, flintstones) -> None:
 
     jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
                               whitespace=_whitespace,
-                              unset_variables=_unset_variables,
-                              file_format=_parameters_format)
+                              unset_variables=_unset_variables)
     captured = capsys.readouterr()
     assert captured.out == flintstones
 
@@ -75,8 +73,7 @@ def test_flintstones_yaml(capsys, flintstones) -> None:
 
     jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
                               whitespace=_whitespace,
-                              unset_variables=_unset_variables,
-                              file_format=_parameters_format)
+                              unset_variables=_unset_variables)
     captured = capsys.readouterr()
     assert captured.out == flintstones
 
@@ -90,8 +87,7 @@ def test_rubbles_json(capsys, rubbles) -> None:
 
     jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
                               whitespace=_whitespace,
-                              unset_variables=_unset_variables,
-                              file_format=_parameters_format)
+                              unset_variables=_unset_variables)
     captured = capsys.readouterr()
     assert captured.out == rubbles
 
@@ -105,10 +101,10 @@ def test_rubbles_yaml(capsys, rubbles) -> None:
 
     jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
                               whitespace=_whitespace,
-                              unset_variables=_unset_variables,
-                              file_format=_parameters_format)
+                              unset_variables=_unset_variables)
     captured = capsys.readouterr()
     assert captured.out == rubbles
+
 
 def test_interfaces_json(capsys, interfaces) -> None:
     _template = 'examples/interfaces.txt'
@@ -119,10 +115,10 @@ def test_interfaces_json(capsys, interfaces) -> None:
 
     jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
                               whitespace=_whitespace,
-                              unset_variables=_unset_variables,
-                              file_format=_parameters_format)
+                              unset_variables=_unset_variables)
     captured = capsys.readouterr()
     assert captured.out == interfaces
+
 
 def test_interfaces_yaml(capsys, interfaces) -> None:
     _template = 'examples/interfaces.txt'
@@ -133,7 +129,6 @@ def test_interfaces_yaml(capsys, interfaces) -> None:
 
     jinja_cli.render_template(template_filename=_template, parameters_filename=_parameters,
                               whitespace=_whitespace,
-                              unset_variables=_unset_variables,
-                              file_format=_parameters_format)
+                              unset_variables=_unset_variables)
     captured = capsys.readouterr()
     assert captured.out == interfaces
