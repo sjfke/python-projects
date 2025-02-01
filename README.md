@@ -194,6 +194,16 @@ PS1> python .\kitten.py -f 2 -l 6 .\examples\fruits.xml
 </fruits>
 ```
 
+## Person
+
+An example Python class, that demonstrates using `attributes` and `getter/setter` approaches.
+
+It is also used as an example for `pytest` testing for exception testing, see `test_person-py -vv`
+
+```console
+PS1> pytest tests/test_person.py 
+```
+
 ## Rhythmbox.xml file parser (unfinished)
 
 * ``rhythmbox.py`` - (unfinished) rhythmbox.xml file parser
@@ -202,11 +212,10 @@ PS1> python .\kitten.py -f 2 -l 6 .\examples\fruits.xml
 
 A series of `pytest` based test programs are being developed and will be stored in the `tests` sub-folder.
 
-In order for tests to work the project folder needs to be in the Python search path, so the `pytest` must be executed
-as a Python module and not directly from the command line.
+In order for tests to work the project folder needs to be in the Python search path, and the `tests` folder needs to 
+be a package, that is, it must have an `__init.py__` for it to work directly from the command line.
 
-```console
-PS1> python -m pytest  # works
-PS1> pytest            # will FAIL
-```
-
+* [Effective Python Testing With pytest](https://realpython.com/pytest-python-testing/)
+* [pytest](https://docs.pytest.org/en/7.4.x/)
+* [Pytest Plugin List](https://docs.pytest.org/en/stable/reference/plugin_list.html)
+* [pytest import mechanisms and sys.path/PYTHONPATH](https://docs.pytest.org/en/stable/explanation/pythonpath.html)
