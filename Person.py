@@ -100,7 +100,7 @@ class Person:
     def __repr__(self):
         """
         repr() string representation
-        :return: programmtic representation
+        :return: programmatic representation
         :rtype: str
         """
         __str = "{"
