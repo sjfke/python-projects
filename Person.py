@@ -104,10 +104,10 @@ class Person:
         :rtype: str
         """
         __str = "{"
-        __str += f"'name': {self.__name}, "
+        __str += f"'name': '{self.__name}', "
         __str += f"'age': {self.__age}, "
-        __str += f"'sex': {self.__sex}, "
-        __str += f"'uuid': {self.__uuid}"
+        __str += f"'sex': '{self.__sex}', "
+        __str += f"'uuid': '{self.__uuid}'"
         __str += "}"
         return __str
 

@@ -55,8 +55,8 @@ def test_set_name_property(p=fred) -> None:
 
 
 def test_set_name_setter(p=fred) -> None:
-    p.set_name('Freddy')
-    assert p.get_name() == 'Freddy'
+    p.set_name('Fred')
+    assert p.get_name() == 'Fred'
 
 
 def test_set_age_property(p=fred) -> None:
@@ -87,3 +87,14 @@ def test_set_age_property_exception(p=fred) -> None:
 def test_set_age_setter_exception(p=fred) -> None:
     with pytest.raises(ValueError):
         p.set_age('35')
+
+
+def test_str_representation(p=fred) -> None:
+    # 'Person: Fred, 35, M, e9f29638-e992-4d1f-a236-db4961782829'
+    (_name, _age, _sex, _uuid) = (p.name, p.age, p.sex, p.uuid)
+    assert str(p) == f"Person: {_name}, {_age}, {_sex}, {_uuid}"
+
+
+def test_repr_representation(p=fred) -> None:
+    # "{'name': Fred, 'age': 35, 'sex': M, 'uuid': e9f29638-e992-4d1f-a236-db4961782829}"
+    assert repr(p) == f"{{'name': '{p.name}', 'age': {p.age}, 'sex': '{p.sex}', 'uuid': '{p.uuid}'}}"
