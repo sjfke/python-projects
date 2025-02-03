@@ -1,10 +1,9 @@
-import os
 import uuid
 
 
 class Person:
 
-    def __init__(self, name, age, sex='M'):
+    def __init__(self, name, age, sex='M') -> None:
         self.__name = name
 
         if not isinstance(age, int):
@@ -17,7 +16,7 @@ class Person:
         self.__sex = sex
         self.__uuid = str(uuid.uuid4())
 
-    def get_name(self):
+    def get_name(self) -> str:
         """
         Getter Name
         :return: name of person
@@ -25,7 +24,7 @@ class Person:
         """
         return self.__name
 
-    def set_name(self, value):
+    def set_name(self, value) -> None:
         """
         Setter name
         :param value: name of person
@@ -35,7 +34,7 @@ class Person:
         """
         self.__name = value
 
-    def get_age(self):
+    def get_age(self) -> int:
         """
         Getter age
         :return: age of person
@@ -43,7 +42,7 @@ class Person:
         """
         return self.__age
 
-    def set_age(self, value):
+    def set_age(self, value) -> None:
         """
         Setter age
         :param value: age of person
@@ -58,7 +57,7 @@ class Person:
         else:
             self.__age = 0
 
-    def get_sex(self):
+    def get_sex(self) -> str:
         """
         Getter gender
         :return: gender of person
@@ -66,7 +65,7 @@ class Person:
         """
         return self.__sex
 
-    def set_sex(self, value):
+    def set_sex(self, value) -> None:
         """
         Setter gender
         :param value: gender of person ('M', 'F', 'N')
@@ -76,7 +75,7 @@ class Person:
         """
         self.__sex = value
 
-    def get_uuid(self):
+    def get_uuid(self) -> str:
         """
         Getter uuid
         :return:UUID value
@@ -84,7 +83,7 @@ class Person:
         """
         return self.__uuid
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         String representation
         :return: human readable representation
@@ -97,7 +96,7 @@ class Person:
         __str += str(self.__uuid)
         return __str
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         repr() string representation
         :return: programmatic representation
