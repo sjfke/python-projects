@@ -100,14 +100,14 @@ class Person:
     def __repr__(self):
         """
         repr() string representation
-        :return: programmtic representation
+        :return: programmatic representation
         :rtype: str
         """
         __str = "{"
-        __str += f"'name': {self.__name}, "
+        __str += f"'name': '{self.__name}', "
         __str += f"'age': {self.__age}, "
-        __str += f"'sex': {self.__sex}, "
-        __str += f"'uuid': {self.__uuid}"
+        __str += f"'sex': '{self.__sex}', "
+        __str += f"'uuid': '{self.__uuid}'"
         __str += "}"
         return __str
 
