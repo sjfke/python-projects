@@ -46,14 +46,19 @@ def test_set_age_property(p=fred) -> None:
     assert p.age == 36
 
 
-def test_negative_age_property() -> None:
+def test_negative_age_exception() -> None:
     with pytest.raises(ValueError):
         _p = Person(name='Fred', age=-1)
 
 
-def test_excessive_age_property_exception() -> None:
+def test_excessive_age_exception() -> None:
     with pytest.raises(ValueError):
         _p = Person(name='Fred', age=151)
+
+
+def test_invalid_gender_exception() -> None:
+    with pytest.raises(ValueError):
+        _p = Person(name='Fred', age=35, sex='Non-Binary')
 
 
 def test_str_representation(p=fred) -> None:
