@@ -1,4 +1,3 @@
-import importlib
 import pytest
 
 import uuid
@@ -47,7 +46,7 @@ def test_set_age_property(p=fred) -> None:
     assert p.age == 36
 
 
-def test_negative_age_property(p=fred) -> None:
+def test_negative_age_property() -> None:
     with pytest.raises(ValueError):
         _p = Person(name='Fred', age=-1)
 
