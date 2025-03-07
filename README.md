@@ -194,15 +194,51 @@ PS1> python .\kitten.py -f 2 -l 6 .\examples\fruits.xml
 </fruits>
 ```
 
-## Person
+## Python Objects
 
-An example Python class, that demonstrates using `attributes` and `getter/setter` approaches.
+``Python`` objects do not support [encapsulation](https://en.wikipedia.org/wiki/Encapsulation_\(computer_programming\))
+or **static type checking** unlike many object-oriented programming languages.
 
-It is also used as an example for `pytest` testing for exception testing, see `test_person-py -vv`
+* It is possible to indicate that data is not intended to be modified by prefixing a variable with ``_`` (underscore) or ``__`` (double underscore).
+* A constant value is indicated making it **UPPERCASE** which can optionally be prefixed with ``_`` (underscore) or ``__`` (double underscore) but this does not prevent it from being updated.
+* By convention ``getter`` and ``setter`` methods are discouraged, if needed see :ref:`person-object-with-attributes`.
+
+It is recommended that [mypy](https://www.mypy-lang.org/) is used to check for **encapsulation violations** and
+**static typing** because the ``Python`` language does not enforce it.
+
+The following examples attempt to cover the most common approaches:
+
+* ``Person_Simple`` illustrates where attributes are accessed directly
+* ``Person_Attributes`` illustrates attributes created using ``property()``
+* ``Person_Decorators`` illustrates properties created using ``decorators``
+* ``Person_Encapsulation`` illustrates ``getter/setter`` approach
+
+Running the tests
 
 ```console
-PS1> pytest tests/test_person.py 
+PS1> pip install pytest
+PS1> pytest .\tests\test_person_simple.py -v
+PS1> pytest .\tests\test_person_attributes.py -v
+PS1> pytest .\tests\test_person_decorators.py -v
+PS1> pytest .\tests\test_person_encapsulation.py -v
 ```
+
+Checking for **encapsulation violations** and **static typing** errors
+
+```console
+PS1> pip install mypy
+PS1> mypy .\Person_Simple.py 
+PS1> mypy .\Person_Attributes.py 
+PS1> mypy .\Person_Decorators.py 
+PS1> mypy .\Person_Encapsulation.py 
+```
+
+Useful resources
+
+* [Python's property(): Add Managed Attributes to Your Classes](https://realpython.com/python-property/)
+* [Python Descriptors: An Introduction](https://realpython.com/python-descriptors/)
+* [``pytest`` - Get Started](https://docs.pytest.org/en/stable/getting-started.html)
+* [``mypy`` - Getting started](https://mypy.readthedocs.io/en/stable/getting_started.html)
 
 ## Rhythmbox.xml file parser (unfinished)
 
