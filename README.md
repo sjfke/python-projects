@@ -212,10 +212,10 @@ It is recommended that [mypy](https://www.mypy-lang.org/) is used to check for *
 
 The following examples attempt to cover the most common approaches:
 
-* ``Person_Simple`` illustrates attributes being accessed directly
-* ``Person_Attributes`` illustrates attributes created using ``property()``
-* ``Person_Decorators`` illustrates properties created using ``decorators``
-* ``Person_Encapsulation`` illustrates ``getter/setter`` approach
+* [Person_Simple](./Person_Simple.py) illustrates attributes being accessed directly
+* [Person_Attributes](./Person_Attributes.py) illustrates attributes created using ``property()``
+* [Person_Decorators](./Person_Decorators.py) illustrates properties created using ``decorators``
+* [Person_Encapsulation](./Person_Encapsulation.py) illustrates ``getter/setter`` approach
 
 Running the ``pytest`` tests
 
