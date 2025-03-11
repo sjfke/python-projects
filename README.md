@@ -199,21 +199,25 @@ PS1> python .\kitten.py -f 2 -l 6 .\examples\fruits.xml
 ``Python`` objects do not support [encapsulation](https://en.wikipedia.org/wiki/Encapsulation_\(computer_programming\))
 or **static type checking** unlike many object-oriented programming languages.
 
-* It is possible to indicate that data is not intended to be modified by prefixing a variable with ``_`` (underscore) or ``__`` (double underscore).
-* A constant value is indicated making it **UPPERCASE** which can optionally be prefixed with ``_`` (underscore) or ``__`` (double underscore) but this does not prevent it from being updated.
-* By convention ``getter`` and ``setter`` methods are discouraged, if needed see :ref:`person-object-with-attributes`.
+* It is possible to indicate that data is not intended to be modified by prefixing a variable with
+  * ``_`` (underscore) or
+  * ``__`` (double underscore).
+* A constant value is indicated making it **UPPERCASE** and to show it should not be modified can be prefixed with
+  * ``_`` (underscore) or 
+  * ``__`` (double underscore)
+* By convention ``getter`` and ``setter`` methods are discouraged.
 
 It is recommended that [mypy](https://www.mypy-lang.org/) is used to check for **encapsulation violations** and
 **static typing** because the ``Python`` language does not enforce it.
 
 The following examples attempt to cover the most common approaches:
 
-* ``Person_Simple`` illustrates where attributes are accessed directly
+* ``Person_Simple`` illustrates attributes being accessed directly
 * ``Person_Attributes`` illustrates attributes created using ``property()``
 * ``Person_Decorators`` illustrates properties created using ``decorators``
 * ``Person_Encapsulation`` illustrates ``getter/setter`` approach
 
-Running the tests
+Running the ``pytest`` tests
 
 ```console
 PS1> pip install pytest
