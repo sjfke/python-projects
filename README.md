@@ -18,9 +18,9 @@ Files:
 * ``jinja-cli.py`` - Python script
 
 * Network interface example
-    * examples\interfaces.txt - template file
-    * examples\interfaces.json - parameters file
-    * examples\interfaces.yaml - parameters file
+  * [examples\interfaces.txt](./examples/interfaces.txt) - template file
+  * [examples\interfaces.json](./examples/interfaces.json) - JSON parameters file
+  * [example\interfaces.yaml](./examples/interfaces.yaml) - YAML parameters file
 
 ```console
 PS1> python .\jinja-cli.py -t .\examples\interfaces.txt -p .\examples\interfaces.json
@@ -34,9 +34,9 @@ interface Ethernet2
 ```
 
 * Flintstones family example using an array
-    * examples\family-array.txt - template file
-    * examples\flintstones.json - parameters file
-    * examples\flintstones.yaml - parameters file
+    * [examples\family-array.txt](./examples/family-array.txt) - template file
+    * [examples\flintstones.json](./examples/flintstones.json) - JSON parameters file
+    * [examples\flintstones.yaml](./examples/flintstones.yaml) - YAML parameters file
 
 ```console
 PS1> python .\jinja-cli.py -t .\examples\family-array.txt -p .\examples\flintstones.json
@@ -57,9 +57,9 @@ FamilyName: FLINTSTONES
 ```
 
 * Rubbles family example using key-value pairs
-    * examples\family-hash.txt - template file
-    * examples\rubbles.json    - parameters file
-    * examples\rubbles.yaml    - parameters file
+    * [examples\family-hash.txt](./examples/family-hash.txt) - template file
+    * [examples\rubbles.json](./examples/rubbles.json) - JSON parameters file
+    * [examples\rubbles.yaml](./examples/rubbles.yaml) - YAML parameters file
 
 ```console
 PS1> python .\jinja-cli.py -t .\examples\family-hash.txt -p .\examples\rubbles.json
