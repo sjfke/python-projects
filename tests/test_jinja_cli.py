@@ -6,13 +6,15 @@ jinja_cli = importlib.import_module("jinja-cli")
 
 @pytest.fixture
 def flintstones() -> str:
-    return '''FamilyName: Flintstones
+    return '''### RAW ###
+FamilyName: Flintstones
   Fred: 30 years old;
   Wilma: 25 years old;
   Pebbles: 1 years old;
   Dino: 5 years old;
 
-FamilyName: Flintstones
+### FORMAT ###
+FamilyName: FLINTSTONES
       Fred: 30 years old;
      Wilma: 25 years old;
    Pebbles: 01 years old;
@@ -23,13 +25,15 @@ FamilyName: Flintstones
 
 @pytest.fixture
 def rubbles() -> str:
-    return '''FamilyName: rubbles
+    return '''### RAW ###
+FamilyName: rubbles
   barney: 29 years old;
   betty: 26 years old;
   bamm-bamm: 1 years old;
   hoppy: 2 years old;
 
-FamilyName: Rubbles
+### FORMAT ###
+FamilyName: RUBBLES
     Barney: 29 years old;
      Betty: 26 years old;
  Bamm-bamm: 01 years old;
@@ -51,8 +55,8 @@ interface Ethernet2
 
 
 def test_flintstones_json(capsys, flintstones) -> None:
-    _template = 'examples/flintstones.txt'
-    _parameters = 'examples/flintstones.json'  # TODO 'examples/flintstones.yaml'
+    _template = 'examples/family-array.txt'
+    _parameters = 'examples/flintstones.json'
     _whitespace = False
     _unset_variables = False
     _parameters_format = 'json_format'
@@ -65,7 +69,7 @@ def test_flintstones_json(capsys, flintstones) -> None:
 
 
 def test_flintstones_yaml(capsys, flintstones) -> None:
-    _template = 'examples/flintstones.txt'
+    _template = 'examples/family-array.txt'
     _parameters = 'examples/flintstones.yaml'
     _whitespace = False
     _unset_variables = False
@@ -79,7 +83,7 @@ def test_flintstones_yaml(capsys, flintstones) -> None:
 
 
 def test_rubbles_json(capsys, rubbles) -> None:
-    _template = 'examples/rubbles.txt'
+    _template = 'examples/family-hash.txt'
     _parameters = 'examples/rubbles.json'
     _whitespace = False
     _unset_variables = False
@@ -93,7 +97,7 @@ def test_rubbles_json(capsys, rubbles) -> None:
 
 
 def test_rubbles_yaml(capsys, rubbles) -> None:
-    _template = 'examples/rubbles.txt'
+    _template = 'examples/family-hash.txt'
     _parameters = 'examples/rubbles.yaml'
     _whitespace = False
     _unset_variables = False

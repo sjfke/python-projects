@@ -1,11 +1,14 @@
+### RAW ###
 FamilyName: {{ family }}
 {% for name, age in members.items() %}
   {{ name }}: {{ age }} years old;
 {% endfor %}
 
-{# jinja templates have many formatting features: https://jinja.palletsprojects.com/en/2.11.x/ #}
+{# jinja templates have many formatting features: https://jinja.palletsprojects.com/en/stable/templates/ #}
 {# jinja supports python formatting for numbers, strings etc.: https://pyformat.info/ #}
-{{ "{:<10}".format('FamilyName') }}: {{ family.capitalize() }}
+{# jinja does not support f-strings: https://github.com/pallets/jinja/issues/1193 #}
+### FORMAT ###
+{{ "{:<10}".format('FamilyName') }}: {{ family.upper() }}
 {% for name, age in members.items() -%}
 {{ "{:>10}".format(name.capitalize()) }}: {{ "{:02d}".format(age) }} years old;
 {% endfor %}
