@@ -58,7 +58,8 @@ if __name__ == '__main__':
     elif args.ages:
         print(f"{get_ages()}")
     elif args.person:
-        print(f"{get_person(name=args.person)}")
+        _person = get_person(name=args.person)
+        if _person: print(f"{_person}")
     else:
         parser.print_help()
 
