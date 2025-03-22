@@ -9,5 +9,5 @@ pytest==8.3.5
 pytz==2025.1
 PyYAML==6.0.2
 tzdata==2025.1
-tzlocal==5.2
+tzlocal==5.3.1
 xmltodict==0.14.2
