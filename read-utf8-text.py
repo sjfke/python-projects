@@ -26,9 +26,9 @@ def display_contents(lines, line_numbers=False):
 # Logging Best Practices: https://www.loggly.com/use-cases/6-python-logging-best-practices-you-should-be-aware-of/
 """
 
-# python .\read-text.py -rv .\examples\petit-nicolas.txt
-# python .\read-text.py -n .\examples\petit-nicolas.txt
-# python .\read-text.py -v .\examples\petit-nicolas.txt
+# python .\read-utf8-text.py -rv .\examples\petit-nicolas.txt
+# python .\read-utf8-text.py -n .\examples\petit-nicolas.txt
+# python .\read-utf8-text.py -v .\examples\petit-nicolas.txt
 
 if __name__ == '__main__':
 
