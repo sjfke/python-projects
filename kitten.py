@@ -15,24 +15,24 @@ def display_contents(lines, line_numbers=False, first_line=0, last_line=0):
 
     for line in lines:
         line_count += 1
-        print(f"first:{first_line}, last:{last_line}, line_count:{line_count}")
+
         if (first_line > 0) and (last_line > 0):
             if (line_count >= first_line) and (line_count <= last_line):
                 if line_numbers:
                     print(f"{line_count:03d}: {line.rstrip()}")  # remove newline '\n'
                 else:
                     print(f"{line.rstrip()}")  # remove newline '\n'
-        elif (first_line > 0) and (line_count >= first_line):
+        elif (first_line > 0) and (line_count <= first_line):
             if line_numbers:
                 print(f"{line_count:03d}: {line.rstrip()}")  # remove newline '\n'
             else:
                 print(f"{line.rstrip()}")  # remove newline '\n'
-        elif (last_line > 0) and (line_count <= last_line):
+        elif (last_line > 0) and (line_count >= last_line):
             if line_numbers:
                 print(f"{line_count:03d}: {line.rstrip()}")  # remove newline '\n'
             else:
                 print(f"{line.rstrip()}")  # remove newline '\n'
-        else:
+        elif (first_line == 0) and (last_line == 0):
             if line_numbers:
                 print(f"{line_count:03d}: {line.rstrip()}")  # remove newline '\n'
             else:
