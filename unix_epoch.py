@@ -8,6 +8,7 @@ _datetime_iana_support = False
 if sys.version_info.major >= 3 and sys.version_info.minor >= 9:
     from zoneinfo import ZoneInfo
     from datetime import datetime, timezone
+
     _datetime_iana_support = True
 else:
     from datetime import datetime
@@ -36,7 +37,8 @@ def get_datetime(epoch, local_time=False, date_format="%Y-%m-%d %H:%M:%S %Z%z"):
 
     if local_time:
         if _datetime_iana_support:
-            return str(datetime.fromtimestamp(epoch).replace(tzinfo=timezone.utc).astimezone(get_localzone()).strftime(date_format))
+            return str(datetime.fromtimestamp(epoch).replace(tzinfo=timezone.utc).astimezone(get_localzone()).strftime(
+                date_format))
         else:
             return str(datetime.fromtimestamp(epoch).replace(tzinfo=pytz.UTC).astimezone(get_localzone()).strftime(
                 date_format))
@@ -77,7 +79,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.verbose > 1:
-        print("args: {0}".format(args.__str__()))
+        print(f"args: {args.__str__()}")
 
     if args.epoch:
         if args.iso8601:

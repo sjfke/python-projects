@@ -43,7 +43,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.verbose > 1:
-        print("args: {args.__str__()}")
+        print(f"args: {args.__str__()}")
 
     # Note equivalent of: filename = open('filename.txt', 'r')
     # Done by: add_argument('filename', nargs='?', type=argparse.FileType('r', encoding='utf-8'), default=sys.stdin)
