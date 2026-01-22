@@ -1,6 +1,6 @@
 # python-projects
 
-Collection of Simple Python Utility Scripts
+Collection of Simple Python Utility Scripts, including ``pytest`` unit tests.
 
 ## Simple Jinja Template merge
 
@@ -15,7 +15,7 @@ Useful references:
 
 Files:
 
-* ``jinja-cli.py`` - Python script
+* [jinja-cli.py](./jinja-cli.py) - Python script
 
 * Network interface example
   * [examples\interfaces.txt](./examples/interfaces.txt) - template file
@@ -83,7 +83,7 @@ FamilyName: RUBBLES
 
 Written to demonstrate how to use `argparse` to read from a positional file parameter or standard-in.
 
-``simple-cli.py`` - simple command line example for reading/writing files
+[simple-cli.py](./simple-cli.py) - simple command line example for reading/writing files
 
 ```console
 PS1> python .\simple-cli.py .\examples\flintstones.json
@@ -119,7 +119,7 @@ command-line.
 
 Utility for displaying a [UNIX epoch](https://en.wikipedia.org/wiki/Unix_time) in UTC or local time-zone.
 
-* ``unix-epoch.py`` - example for displaying a UNIX epoch in UTC or local time-zone
+* [unix-epoch.py](./unix_epoch.py) - example for displaying a UNIX epoch in UTC or local time-zone
 
 ```console
 PS1> python .\unix_epoch.py                  # 1734877954
@@ -131,8 +131,8 @@ PS1> python .\unix_epoch.py -l -e 1734877954 # 2024-12-22 16:32:34 W. Europe Sta
 
 Restricted to common image and video file types, but could *easily* be extended to support other binary file types.
 
-* ``image-to-json.py`` - reads and encodes binary file, wrapping its content in a JSON file
-* ``json-to-image.py`` - extracts and decodes the binary data and writes it to a file
+* [image-to-json.py](./image-to-json.py) - reads and encodes binary file, wrapping its content in a JSON file
+* [json-to-image.py](./json-to-image.py) - extracts and decodes the binary data and writes it to a file
 
 ```console
 PS1> python .\image-to-json.py .\examples\python-logo.png .\examples\python-logo.json
