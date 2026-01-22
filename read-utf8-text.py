@@ -4,7 +4,8 @@ import sys
 __author__ = "Sjfke"
 __copyright__ = "Copyleft"
 
-def display_contents(lines, line_numbers=False):
+
+def display_lines(lines, line_numbers=False):
     line_count = 0
 
     for line in lines:
@@ -16,6 +17,7 @@ def display_contents(lines, line_numbers=False):
 
     return None
 
+
 """ Useful references
 # Python Library: https://docs.python.org/dev/library/argparse.html
 # Nargs usage: https://docs.python.org/dev/library/argparse.html#nargs
@@ -26,12 +28,12 @@ def display_contents(lines, line_numbers=False):
 # Logging Best Practices: https://www.loggly.com/use-cases/6-python-logging-best-practices-you-should-be-aware-of/
 """
 
+
 # python .\read-utf8-text.py -rv .\examples\european-words.txt
 # python .\read-utf8-text.py -n .\examples\european-words.txt
 # python .\read-utf8-text.py -v .\examples\european-words.txt
 
-if __name__ == '__main__':
-
+def main(args=None) -> None:
     arguments = None
     parser = argparse.ArgumentParser(description='Display the contents of a UTF-8 text file')
     parser.add_argument('-n', '--number', action='store_true', default=False, help='display line numbers')
@@ -49,15 +51,14 @@ if __name__ == '__main__':
     # Done by: add_argument('filename', nargs='?', type=argparse.FileType('r', encoding='utf-8'), default=sys.stdin)
     try:
         contents = args.filename.readlines()
-
-        if args.verbose >= 1:
-            print(f"filename: {args.filename}")
-
         if args.raw:
             print(f"contents: {contents}")
-            sys.exit(0)
+        else:
+            if args.verbose >= 1:
+                print(f"filename: {args.filename}")
 
-        display_contents(lines=contents, line_numbers=args.number)
+            display_lines(lines=contents, line_numbers=args.number)
+
         sys.exit(0)
 
     except FileNotFoundError as file_not_found_error:
@@ -66,3 +67,7 @@ if __name__ == '__main__':
     except Exception as error:
         print(f"{error}")
         sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()
