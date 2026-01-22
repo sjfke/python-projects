@@ -1,10 +1,8 @@
-import importlib
 import pytest
 import subprocess
 import sys
 
-# read_utf8_text = importlib.import_module("read-utf8-text")
-
+# https://python-basics-tutorial.readthedocs.io/en/latest/test/pytest/fixtures.html
 # setup 'fd' for the tests, commands after yield are tear-down
 @pytest.fixture
 def fd():

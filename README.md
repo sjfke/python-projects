@@ -151,7 +151,7 @@ JSON file content
 
 ## Kitten
 
-A simplistic version on UNIX `cat` command
+A simplistic version on UNIX `cat` command, [kitten.py](./kitten.py)
 
 ```console
 PS1> python .\kitten.py --help                         
@@ -198,6 +198,28 @@ PS1> python .\kitten.py -f 2 -l 6 .\examples\fruits.xml
   <fruit><name>banana</name><color>yellow</color><price>0.5</price></fruit>
   <fruit><name>kiwi</name><color>green</color><price>1.25</price></fruit>
 </fruits>
+```
+## UTF-8 Issues
+
+When interacting with the operating system, particularly on ``Windows`` which is configured to use code-page such as ``cp1252``, 
+rather than ``UTF-8`` can cause [mojibake](https://en.wikipedia.org/wiki/Mojibake) errors.
+
+A good explanation is given in [Mastering Python's UTF-8 Mode: Pitfalls and Practical Workarounds](https://runebook.dev/en/docs/python/library/os/python-utf-8-mode>)
+
+The simple fix is to ensure that the ``Python`` interpreter is forcing ``UTF-8``
+
+```console
+PS1> python -X utf8 .\kitten.py -v .\examples\european-words.txt # WORKS correctly
+PS1> python         .\kitten.py -v .\examples\european-words.txt # FAILS "mojibake" errors
+```
+
+The [read-utf8-text.py](./read-utf8-text.py) example shows an alternative solution by forcing ``UTF-8`` encoding in ``argparse.ArgumentParser``,
+but issues remain with [pytest](https://docs.pytest.org/en/stable/) and [Python subprocess module](https://docs.python.org/3/library/subprocess.html)
+
+```console
+PS1> python .\read-utf8-text.py -rv .\examples\european-words.txt
+PS1> python .\read-utf8-text.py -n .\examples\european-words.txt
+PS1> python .\read-utf8-text.py -v .\examples\european-words.txt
 ```
 
 ## Python Objects

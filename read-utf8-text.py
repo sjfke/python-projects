@@ -33,12 +33,16 @@ def display_lines(lines, line_numbers=False):
 # python .\read-utf8-text.py -n .\examples\european-words.txt
 # python .\read-utf8-text.py -v .\examples\european-words.txt
 
-def main(args=None) -> None:
+# def main(args=None) -> None:
+
+if __name__ == '__main__':
+
     arguments = None
     parser = argparse.ArgumentParser(description='Display the contents of a UTF-8 text file')
     parser.add_argument('-n', '--number', action='store_true', default=False, help='display line numbers')
     parser.add_argument('-r', '--raw', action='store_true', default=False, help='raw contents')
     parser.add_argument('-v', '--verbose', action='count', default=0)
+    # parser.add_argument('filename', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     # Forcing UTF-8 encoding, to avoid unpredictable results with international characters
     parser.add_argument('filename', nargs='?', type=argparse.FileType('r', encoding='utf-8'), default=sys.stdin)
 
@@ -68,6 +72,3 @@ def main(args=None) -> None:
         print(f"{error}")
         sys.exit(1)
 
-
-if __name__ == '__main__':
-    main()
