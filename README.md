@@ -1,6 +1,6 @@
 # python-projects
 
-Collection of Simple Python Utility Scripts
+Collection of Simple Python Utility Scripts, including ``pytest`` unit tests.
 
 ## Simple Jinja Template merge
 
@@ -15,7 +15,7 @@ Useful references:
 
 Files:
 
-* ``jinja-cli.py`` - Python script
+* [jinja-cli.py](./jinja-cli.py) - Python script
 
 * Network interface example
   * [examples\interfaces.txt](./examples/interfaces.txt) - template file
@@ -83,7 +83,7 @@ FamilyName: RUBBLES
 
 Written to demonstrate how to use `argparse` to read from a positional file parameter or standard-in.
 
-``simple-cli.py`` - simple command line example for reading/writing files
+[simple-cli.py](./simple-cli.py) - simple command line example for reading/writing files
 
 ```console
 PS1> python .\simple-cli.py .\examples\flintstones.json
@@ -119,7 +119,7 @@ command-line.
 
 Utility for displaying a [UNIX epoch](https://en.wikipedia.org/wiki/Unix_time) in UTC or local time-zone.
 
-* ``unix-epoch.py`` - example for displaying a UNIX epoch in UTC or local time-zone
+* [unix-epoch.py](./unix_epoch.py) - example for displaying a UNIX epoch in UTC or local time-zone
 
 ```console
 PS1> python .\unix_epoch.py                  # 1734877954
@@ -131,8 +131,8 @@ PS1> python .\unix_epoch.py -l -e 1734877954 # 2024-12-22 16:32:34 W. Europe Sta
 
 Restricted to common image and video file types, but could *easily* be extended to support other binary file types.
 
-* ``image-to-json.py`` - reads and encodes binary file, wrapping its content in a JSON file
-* ``json-to-image.py`` - extracts and decodes the binary data and writes it to a file
+* [image-to-json.py](./image-to-json.py) - reads and encodes binary file, wrapping its content in a JSON file
+* [json-to-image.py](./json-to-image.py) - extracts and decodes the binary data and writes it to a file
 
 ```console
 PS1> python .\image-to-json.py .\examples\python-logo.png .\examples\python-logo.json
@@ -151,7 +151,7 @@ JSON file content
 
 ## Kitten
 
-A simplistic version on UNIX `cat` command
+A simplistic version on UNIX `cat` command, [kitten.py](./kitten.py)
 
 ```console
 PS1> python .\kitten.py --help                         
@@ -198,6 +198,28 @@ PS1> python .\kitten.py -f 2 -l 6 .\examples\fruits.xml
   <fruit><name>banana</name><color>yellow</color><price>0.5</price></fruit>
   <fruit><name>kiwi</name><color>green</color><price>1.25</price></fruit>
 </fruits>
+```
+## UTF-8 Issues
+
+When interacting with the operating system, particularly on ``Windows`` which is configured to use code-page such as ``cp1252``, 
+rather than ``UTF-8`` can cause [mojibake](https://en.wikipedia.org/wiki/Mojibake) errors.
+
+A good explanation is given in [Mastering Python's UTF-8 Mode: Pitfalls and Practical Workarounds](https://runebook.dev/en/docs/python/library/os/python-utf-8-mode>)
+
+The simple fix is to ensure that the ``Python`` interpreter is forcing ``UTF-8``
+
+```console
+PS1> python -X utf8 .\kitten.py -v .\examples\european-words.txt # WORKS correctly
+PS1> python         .\kitten.py -v .\examples\european-words.txt # FAILS "mojibake" errors
+```
+
+The [read-utf8-text.py](./read-utf8-text.py) example shows an alternative solution by forcing ``UTF-8`` encoding in ``argparse.ArgumentParser``,
+but issues remain with [pytest](https://docs.pytest.org/en/stable/) and [Python subprocess module](https://docs.python.org/3/library/subprocess.html)
+
+```console
+PS1> python .\read-utf8-text.py -rv .\examples\european-words.txt
+PS1> python .\read-utf8-text.py -n .\examples\european-words.txt
+PS1> python .\read-utf8-text.py -v .\examples\european-words.txt
 ```
 
 ## Python Objects

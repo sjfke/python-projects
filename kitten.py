@@ -2,40 +2,41 @@ import argparse
 import sys
 
 
-def display_contents(lines, line_numbers=False, first_line=0, last_line=0, verbose=0):
+def display_contents(lines, line_numbers=False, first_line=0, last_line=0):
     """ Display file contents line by line
     :param lines: file content as a List
     :param line_numbers: prefix line with line count
     :param first_line: first line to display
     :param last_line: last line to display
-    :param verbose: messages
     """
+
 
     line_count = 0
 
     for line in lines:
         line_count += 1
+
         if (first_line > 0) and (last_line > 0):
             if (line_count >= first_line) and (line_count <= last_line):
                 if line_numbers:
-                    print("{:03d}: {}".format(line_count, line.rstrip()))  # remove newline '\n'
+                    print(f"{line_count:03d}: {line.rstrip()}")  # remove newline '\n'
                 else:
-                    print("{}".format(line.rstrip()))  # remove newline '\n'
-        elif (first_line > 0) and (line_count >= first_line):
+                    print(f"{line.rstrip()}")  # remove newline '\n'
+        elif (first_line > 0) and (line_count <= first_line):
             if line_numbers:
-                print("{:03d}: {}".format(line_count, line.rstrip()))  # remove newline '\n'
+                print(f"{line_count:03d}: {line.rstrip()}")  # remove newline '\n'
             else:
-                print("{}".format(line.rstrip()))  # remove newline '\n'
-        elif (last_line > 0) and (line_count <= last_line):
+                print(f"{line.rstrip()}")  # remove newline '\n'
+        elif (last_line > 0) and (line_count >= last_line):
             if line_numbers:
-                print("{:03d}: {}".format(line_count, line.rstrip()))  # remove newline '\n'
+                print(f"{line_count:03d}: {line.rstrip()}")  # remove newline '\n'
             else:
-                print("{}".format(line.rstrip()))  # remove newline '\n'
-        else:
+                print(f"{line.rstrip()}")  # remove newline '\n'
+        elif (first_line == 0) and (last_line == 0):
             if line_numbers:
-                print("{:03d}: {}".format(line_count, line.rstrip()))  # remove newline '\n'
+                print(f"{line_count:03d}: {line.rstrip()}")  # remove newline '\n'
             else:
-                print("{}".format(line.rstrip()))  # remove newline '\n'
+                print(f"{line.rstrip()}")  # remove newline '\n'
 
     return None
 
@@ -59,31 +60,34 @@ if __name__ == '__main__':
     parser.add_argument('-f', '--first', type=int, default=0, help='first line to display')
     parser.add_argument('-l', '--last', type=int, default=0, help='last line to display')
     parser.add_argument('-r', '--reverse', action='store_true', default=False, help='reverse contents')
+    parser.add_argument('-u', '--uncooked', action='store_true', default=False, help='raw contents')
     parser.add_argument('-v', '--verbose', action='count', default=0)
     parser.add_argument('filename', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
 
     args = parser.parse_args()
 
     if args.verbose > 1:
-        print("args: {0}".format(args.__str__()))
+        print(f"args: {args.__str__()}")
 
     # Note equivalent of: filename = open('filename.txt', 'r')
     # Done by: add_argument('filename', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
     try:
         contents = args.filename.readlines()
+
         if args.reverse:
             contents.reverse()
 
         if args.verbose >= 1:
-            print("filename: {0}".format(args.infd.name))
-            print("contents: {0}".format(contents))
+            print(f"args: {args.__str__()}")
 
-        display_contents(lines=contents, line_numbers=args.number, first_line=args.first, last_line=args.last,
-                         verbose=args.verbose)
+        if args.uncooked:
+            print(f"contents: {contents}")
+
+        display_contents(lines=contents, line_numbers=args.number, first_line=args.first, last_line=args.last)
         sys.exit(0)
     except FileNotFoundError as file_not_found_error:
-        print("{0}".format(file_not_found_error))
+        print(f"{file_not_found_error}")
         sys.exit(1)
     except Exception as error:
-        print('{0}'.format(error))
+        print(f"{error}")
         sys.exit(1)
